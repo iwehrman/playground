@@ -317,10 +317,10 @@ ul.property-inspector > li {
 	}
 	ul.property-inspector > li small + a.color-well + input[type="text"] {
 		width: 100px;
-		margin: 0 0 0 20px;
+		margin: 1px 0 0 20px;
 	}
 	ul.property-inspector > li input[type="text"] {
-		margin: 0;
+		margin: 1px 0 0 0;
 		height: 30px;
 		line-height: 30px;
 	}
@@ -428,4 +428,37 @@ ul #toggle-dev button {
 }
 ul #toggle-custom button {
 	background-image: url(topcoat/pencil.svg);
+}
+
+/* HUD */
+
+.overlay {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 150px;
+  height: 150px;
+  padding: 15px;
+  background-color: rgba(0,0,0,.6);
+  border-radius: 6px;
+  box-shadow: 0 .1px 4px 0 rgba(0,0,0,.5);
+  opacity: 0;
+  display: block;
+}
+.overlay.visible {
+  opacity: 1;
+/*  -webkit-animation: showcurrenttool 1s 0;*/
+}
+.overlay.hidden {
+  opacity: 0;
+/*  -webkit-animation: hidecurrenttool 1s 0;*/
+}
+.overlay span.icomatic {
+  font-size: 80px;
+  line-height: 130px;
 }
