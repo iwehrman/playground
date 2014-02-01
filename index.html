@@ -105,25 +105,25 @@
         <label for="f1">Properties</label>
           <ul class="property-inspector">
             <li>
-              <h3>Nothing Selected</h3>
+              <h3 id="current-object">Nothing Selected</h3>
             </li>
             <li>
               <fieldset>
                 <legend>Background</legend>
-                <small class="">Fill:</small> <a href="#" class="color-well" style="background-color: #09c;"> </a> <input class="topcoat-text-input quiet value" type="text" plaeholder="no radius" value="rgba(65,179,225,1)">
+                <small class="">Fill:</small> <a id="current-fill-color" href="#" class="color-well" style="background-color: #09c;"> </a> <input class="topcoat-text-input quiet value" type="text" plaeholder="no radius" value="rgba(65,179,225,1)">
               </fieldset>
             </li>
             <li>
               <fieldset>
                 <legend>Border</legend>
                 <div class="pi-block">
-                  <small>Color:</small> <a href="#" class="color-well" style="background-color: #dcffd0;"> </a> <input class="topcoat-text-input quiet value" type="text" placeholder="none" value="#dcffd0">
+                  <small>Color:</small> <a id="current-border-color" href="#" class="color-well" style="background-color: #dcffd0;"> </a> <input class="topcoat-text-input quiet value" type="text" placeholder="none" value="#dcffd0">
                 </div>
                 <div class="pi-block">
-                  <small>Width:</small> <input class="topcoat-text-input quiet value small" type="text" placeholder="0">
+                  <small>Width:</small> <input id="current-border-width" class="topcoat-text-input quiet value small" type="text" placeholder="0">
                 </div>
                 <div class="pi-block">
-                  <small>Radius:</small> <input class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input value="0" class="topcoat-range" type="range" name="foo">
+                  <small>Radius:</small> <input id="current-border-radius" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-radius" value="0" class="topcoat-range" type="range" name="foo">
                 </div>
               </fieldset>
             </li>
@@ -169,10 +169,7 @@
                 <option value="normal">20%</option>
                 <option value="normal">10%</option>
                 <option value="normal">0%</option>
-
               </select>
-
-              <!-- <input class="topcoat-text-input" type="text" placeholder="Opacity">!-->
             </li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic" style="color: #41b3e1;">pencil</a> Blue Pencil</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text layer</li>

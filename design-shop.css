@@ -134,7 +134,6 @@ aside.panels {
 .topcoat-tree > li label + ul > li { 
 	opacity: 0;
 	height: 0%;
-	-webkit-transition: all .05s cubic-bezier(0.455, 0.030, 0.515, 0.955);
 }
 .topcoat-tree > li > label {
 	cursor: pointer;
@@ -143,7 +142,7 @@ aside.panels {
 	color: #aaa;
 	font-size: 82%;
 	text-transform: uppercase;
-	letter-spacing: 1px;
+	letter-spacing: 2px;
 	z-index: 2;
 }
 .topcoat-tree > li > label:after {
