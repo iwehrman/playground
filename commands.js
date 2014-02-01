@@ -735,3 +735,25 @@ Commands.setRadius = function(idx) {
   })
 
 }
+
+Commands.setStrokeWidth = function(idx) {
+  PS.call('setd',{
+    "T   " : {
+      "obj" : "shapeStyle",
+      "strokeStyle" : {
+        "obj" : "strokeStyle",
+        "strokeEnabled" : 1,
+        "strokeStyleVersion" : 2,
+        "strokeStyleLineWidth" : {
+          "value" : idx,
+          "unit" : "#Pxl"
+        }
+      }
+    },
+    "null" : {
+      "ref" : "contentLayer",
+      "value" : "Trgt",
+      "enumType" : "Ordn"
+    }
+  })
+}

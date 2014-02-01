@@ -19,9 +19,9 @@
       }
 
       // Update whatever needs updating when the radius is changed
-      function updateTextInput(val) {
+      function updateTextInput(val, what) {
         var currentObject;
-        document.getElementById('current-border-radius').value=val;
+        document.getElementById(what).value=val;
         // add call to PS objects here?
       }
 
@@ -153,10 +153,10 @@
                   <small>Color:</small> <a id="current-border-color" href="#" class="color-well" style="background-color: #dcffd0;"> </a> <input class="topcoat-text-input quiet value" type="text" placeholder="none" value="#dcffd0">
                 </div>
                 <div class="pi-block">
-                  <small>Width:</small> <input id="current-border-width" class="topcoat-text-input quiet value small" type="text" placeholder="0">
+                  <small>Width:</small> <input id="current-border-width" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-width" value="0" class="topcoat-range" type="range" name="border-width" onchange="updateTextInput(this.value, 'current-border-width'); Commands.setStrokeWidth(this.value);">
                 </div>
                 <div class="pi-block">
-                  <small>Radius:</small> <input id="current-border-radius" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-radius" value="0" class="topcoat-range" type="range" name="border-radius" onchange="updateTextInput(this.value); Commands.setRadius(this.value);">
+                  <small>Radius:</small> <input id="current-border-radius" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-radius" value="0" class="topcoat-range" type="range" name="border-radius" onchange="updateTextInput(this.value, 'current-border-radius'); Commands.setRadius(this.value);">
                 </div>
               </fieldset>
             </li>
