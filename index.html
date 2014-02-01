@@ -105,17 +105,27 @@
         <label for="f1">Properties</label>
           <ul class="property-inspector">
             <li>
-              <h3>Object Name</h3>
-              <small>Fill</small><br>
-              <a href="#" class="color-well"> </a> <input class="topcoat-text-input quiet value" type="text" plaeholder="no radius" value="rgba(65,179,225,1)">
+              <h3>Nothing Selected</h3>
             </li>
             <li>
-              <small>Border</small><br>
-              <a href="#" class="color-well"> </a>  <input class="topcoat-text-input quiet value" type="text" plaeholder="no radius" value="rgba(65,179,225,1)"><br />
+              <fieldset>
+                <legend>Background</legend>
+                <small class="">Fill:</small> <a href="#" class="color-well" style="background-color: #09c;"> </a> <input class="topcoat-text-input quiet value" type="text" plaeholder="no radius" value="rgba(65,179,225,1)">
+              </fieldset>
             </li>
             <li>
-              <small>Rounded Corners</small><br>
-              <input class="topcoat-range" type="range" name="foo" min="0" max="100">
+              <fieldset>
+                <legend>Border</legend>
+                <div class="pi-block">
+                  <small>Color:</small> <a href="#" class="color-well" style="background-color: #dcffd0;"> </a> <input class="topcoat-text-input quiet value" type="text" placeholder="none" value="#dcffd0">
+                </div>
+                <div class="pi-block">
+                  <small>Width:</small> <input class="topcoat-text-input quiet value small" type="text" placeholder="0">
+                </div>
+                <div class="pi-block">
+                  <small>Radius:</small> <input class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input value="0" class="topcoat-range" type="range" name="foo">
+                </div>
+              </fieldset>
             </li>
 <!--
             <li>
@@ -651,7 +661,7 @@ askClass = function (elt) {
     
 }
 
-    </script>
+</script>
   <script type="text/javascript" src="icomatic/icomatic.js"></script>
   <script type="text/javascript" src="commands.js"></script>
   </body>

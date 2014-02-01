@@ -268,32 +268,79 @@ ul.property-inspector > li {
 	margin-bottom: 20px;
 	height: 30px;
 	line-height: 30px;
-	padding: 0 15px 10px;
+	padding: 0 15px;
 }
-	ul.property-inspector > li a.color-well/*,
-	ul.property-inspector > li .value */{
-		display: flex;
-		position: absolute;
+	ul.property-inspector > li h3 {
+		display: block;
+		margin: 0;
+		padding: 0;
+		font-size: 90%;
 	}
-	ul.property-inspector > li small {
+	ul.property-inspector > li fieldset {
+		border: 1px dotted rgba(255,255,255,.05);
+	}
+	ul.property-inspector > li fieldset:last-child {
+		margin-bottom: 15px;
+	}
+	ul.property-inspector > li fieldset legend {
+		color: #7a7a7a;
+		font-size: 90%;
+		font-weight: 500;
+	}
+	ul.property-inspector > fieldset legend {
 		color: #aaa;
 		font-size: 80%;
 	}
+		ul.property-inspector > li .pi-block {
+			height: 30px;
+			line-height: 30px;
+			display: block;
+		}
+	ul.property-inspector > li small {
+		display: inline-block;
+		width: 45px;
+		height: 30px;
+		line-height: 30px;
+		margin: 0 5px 0 0;
+		text-align: right;
+		overflow: hidden;
+		color: #7a7a7a;
+		font-size: 75%;
+	}
 	ul.property-inspector > li a.color-well {
+		display: flex;
+		position: absolute;
 		width: 20px;
 		height: 20px;
-		margin: 0 10px 0 0;
+		margin: 5px 0;
 		background: #09c;
 		border: 1px solid rgba(255,255,255, .1);
 	}
-	ul.property-inspector > li .value {
-		margin: 4px 0 0 30px;
+	ul.property-inspector > li small + a.color-well + input[type="text"] {
+		width: 100px;
+		margin: 0 0 0 20px;
+	}
+	ul.property-inspector > li input[type="text"] {
+		margin: 0;
+		height: 30px;
+		line-height: 30px;
+	}
+	ul.property-inspector > li input[type="text"].small {
+		width: 40px;
+	}
+	ul.property-inspector > li input[type="range"] {
+		width: 100px;
+		margin: 12px 0 0 0;
 	}
 
 ul.property-inspector > li:last-child {
 	margin: 0;
 }
-/* toolbar */
+/*
+
+————————————————— Toolbar
+
+*/
 #toolbar {
 	position: absolute;
 	top: 0;
