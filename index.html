@@ -5,6 +5,11 @@
     <title></title>
     <link rel="stylesheet" href="topcoat/topcoat-desktop-dark.css" type="text/css" media="screen">
     <link rel="stylesheet" href="design-shop.css" type="text/css" media="screen">
+    <script type="text/javascript" src="colorpicker.js"></script>
+    <style type="text/css">
+      #picker { width: 200px; height: 200px }
+      #slide { width: 30px; height: 200px }
+    </style>
     <script type="text/javascript">
       var selectedItem;
       function CngClass(obj){
@@ -15,6 +20,7 @@
 
       // Update whatever needs updating when the radius is changed
       function updateTextInput(val) {
+        var currentObject;
         document.getElementById('current-border-radius').value=val;
         // add call to PS objects here?
       }
@@ -23,11 +29,29 @@
   </head>
   <body>
 
+<!-- Color Picker !-->
+<!--
+<div class="colorpicker">
+  <div id="picker"></div>
+  <div id="slide"></div>
+</div>
+!-->
+<script type="text/javascript">
+  ColorPicker(
+    document.getElementById('slide'),
+    document.getElementById('picker'),
+    function(hex, hsv, rgb) {
+// Set something's color here... Gimme objects, son!
+
+//      document.body.style.backgroundColor = hex;
+    });
+</script>
+
 <!-- Toolbar !-->
 <aside id="toolbar">
   <ul id="tools" class="topcoat-button-list">
     <li id="tool-move">
-      <button title="Move" onClick='Commands.moveTool({autoSelect:true, groups:false}); CngClass(this); getMe();' class="topcoat-icon-button--large">
+      <button title="Move" onClick='Commands.moveTool({autoSelect:true, groups:false}); CngClass(this);' class="topcoat-icon-button--large">
         <span class="topcoat-icon--large"></span>
       </button>
     </li>
@@ -132,7 +156,7 @@
                   <small>Width:</small> <input id="current-border-width" class="topcoat-text-input quiet value small" type="text" placeholder="0">
                 </div>
                 <div class="pi-block">
-                  <small>Radius:</small> <input id="current-border-radius" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-radius" value="0" class="topcoat-range" type="range" name="border-radius" onchange="updateTextInput(this.value);">
+                  <small>Radius:</small> <input id="current-border-radius" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-radius" value="0" class="topcoat-range" type="range" name="border-radius" onchange="updateTextInput(this.value); Commands.setRadius(this.value);">
                 </div>
               </fieldset>
             </li>
@@ -623,8 +647,9 @@
 
     </aside>
 
-
-<script>
+  <script type="text/javascript" src="icomatic/icomatic.js"></script>
+  <script type="text/javascript" src="commands.js"></script>
+  <script>
     
     Commands.setClassic(false);
     
@@ -668,7 +693,5 @@ askClass = function (elt) {
 }
 
 </script>
-  <script type="text/javascript" src="icomatic/icomatic.js"></script>
-  <script type="text/javascript" src="commands.js"></script>
   </body>
 </html>
