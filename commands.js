@@ -23,7 +23,7 @@ eventHandlers = {
      var brush = Commands.getBrush()
      
      if(brush.Tool.enumType == ref) {
-      console.log("selected tool", ref, brush.CrnT);   
+      console.log("selected tool", ref, brush.CrnT);
       return;
      }
   
@@ -756,4 +756,58 @@ Commands.setStrokeWidth = function(idx) {
       "enumType" : "Ordn"
     }
   })
+}
+
+Commands.setFillColor = function(theR, theG, theB) {
+  PS.call('setd',{
+    "T   " : {
+      "obj" : "shapeStyle",
+      "FlCn" : {
+        "obj" : "solidColorLayer",
+        "Clr " : {
+          "Grn " : theG,
+          "Rd  " : theR,
+          "obj" : "RGBC",
+          "Bl  " : theB
+        }
+      },
+      "strokeStyle" : {
+        "obj" : "strokeStyle",
+        "fillEnabled" : 1,
+        "strokeStyleVersion" : 2
+      }
+    },
+    "null" : {
+      "ref" : "contentLayer",
+      "value" : "Trgt",
+      "enumType" : "Ordn"
+    }
+  }) 
+}
+
+Commands.setStrokeColor = function(theR, theG, theB) {
+PS.call('setd',{
+  "T   " : {
+    "obj" : "shapeStyle",
+    "strokeStyle" : {
+      "strokeStyleContent" : {
+        "obj" : "solidColorLayer",
+        "Clr " : {
+          "Grn " : theG,
+          "Rd  " : theR,
+          "obj" : "RGBC",
+          "Bl  " : theB
+        }
+      },
+      "obj" : "strokeStyle",
+      "strokeEnabled" : 1,
+      "strokeStyleVersion" : 2
+    }
+  },
+  "null" : {
+    "ref" : "contentLayer",
+    "value" : "Trgt",
+    "enumType" : "Ordn"
+  }
+}) 
 }

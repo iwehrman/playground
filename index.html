@@ -6,45 +6,79 @@
     <link rel="stylesheet" href="topcoat/topcoat-desktop-dark.css" type="text/css" media="screen">
     <link rel="stylesheet" href="design-shop.css" type="text/css" media="screen">
     <script type="text/javascript" src="colorpicker.js"></script>
+
     <style type="text/css">
       #picker { width: 200px; height: 200px }
       #slide { width: 30px; height: 200px }
     </style>
     <script type="text/javascript">
-      var selectedItem;
+
+      var colorR;
+      var colorG;
+      var colorB;
+
+      // Get selected element
+      var selectedSwatch;
+      function replyClick(clickedId) {
+        selectedSwatch = clickedId;
+        console.log("just clicked on "+ clickedId);
+      }
+
+      // Toggle selected style for toolbars    
+      var selectedTool;
       function CngClass(obj){
-        if (selectedItem) selectedItem.className='';
+        if (selectedTool) selectedTool.className='';
         obj.className='selected';
-        selectedItem=obj;
+        selectedTool=obj;
       }
 
       // Update whatever needs updating when the radius is changed
-      function updateTextInput(val, what) {
+      function updateTextInput(val, theElement) {
         var currentObject;
-        document.getElementById(what).value=val;
+        document.getElementById(theElement).value=val;
         // add call to PS objects here?
       }
+
+      var cp = ColorPicker(document.getElementById('theColor'), function() {});
+      //cp.setRgb({ hex: '#bada55' });
+
+      function hexToR(h) {colorR = parseInt((cutHex(h)).substring(0,2),16)}
+      function hexToG(h) {colorG = parseInt((cutHex(h)).substring(2,4),16)}
+      function hexToB(h) {colorB = parseInt((cutHex(h)).substring(4,6),16)}
+      function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 
     </script>
   </head>
   <body>
 
 <!-- Color Picker !-->
-<!--
 <div class="colorpicker">
-  <div id="picker"></div>
-  <div id="slide"></div>
+  <div id="theColor"></div>
 </div>
-!-->
-<script type="text/javascript">
-  ColorPicker(
-    document.getElementById('slide'),
-    document.getElementById('picker'),
-    function(hex, hsv, rgb) {
-// Set something's color here... Gimme objects, son!
 
-//      document.body.style.backgroundColor = hex;
-    });
+<script>
+
+  ColorPicker(document.getElementById('theColor'), function(hex, hsv, rgb) {
+      if(selectedSwatch) {
+
+        var swatchInputId = selectedSwatch.slice(7);
+
+        document.getElementById(selectedSwatch).style.backgroundColor = hex;
+
+        hexToR(hex);
+        hexToG(hex);
+        hexToB(hex);
+
+        updateTextInput('rgba('+colorR+', '+colorG+', '+colorB+')', 'text'+swatchInputId)
+
+        if (selectedSwatch === "current-fill-color") {Commands.setFillColor(colorR, colorG, colorB)};
+        if (selectedSwatch === "current-border-color") {Commands.setStrokeColor(colorR, colorG, colorB)};
+
+        console.log(colorR);
+
+
+      }
+  });
 </script>
 
 <!-- Toolbar !-->
@@ -143,14 +177,14 @@
             <li>
               <fieldset>
                 <legend>Background</legend>
-                <small class="">Fill:</small> <a id="current-fill-color" href="#" class="color-well" style="background-color: #09c;"> </a> <input class="topcoat-text-input quiet value" type="text" plaeholder="no radius" value="rgba(65,179,225,1)">
+                <small class="">Fill:</small> <a onclick="replyClick(this.id);" id="current-fill-color" href="#" class="color-well" style="background-color:" +hex+";"> </a> <input id="text-fill-color" class="topcoat-text-input quiet value" type="text" value="rgba("+colorR+","+colorG+","+colorB"+,1)">
               </fieldset>
             </li>
             <li>
               <fieldset>
                 <legend>Border</legend>
                 <div class="pi-block">
-                  <small>Color:</small> <a id="current-border-color" href="#" class="color-well" style="background-color: #dcffd0;"> </a> <input class="topcoat-text-input quiet value" type="text" placeholder="none" value="#dcffd0">
+                  <small>Color:</small> <a onclick="replyClick(this.id);" onupdate="Commands.setFillColor(this.style.backgroundColor);" id="current-border-color" href="#" class="color-well" style="background-color: #dcffd0;"> </a> <input id="text-border-color" class="topcoat-text-input quiet value" type="text" placeholder="none" value="rgba("+colorR+","+colorG+","+colorB"+,1)">
                 </div>
                 <div class="pi-block">
                   <small>Width:</small> <input id="current-border-width" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-width" value="0" class="topcoat-range" type="range" name="border-width" onchange="updateTextInput(this.value, 'current-border-width'); Commands.setStrokeWidth(this.value);">
