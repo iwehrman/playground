@@ -333,6 +333,9 @@ ul.property-inspector > li:last-child {
 ————————————————— Toolbar
 
 */
+aside {
+/*	display: none;	*/
+}
 #toolbar {
 	position: absolute;
 	top: 0;
@@ -382,7 +385,7 @@ ul #tool-pen button {
 	background-image: url(img/ico-pen.svg);
 }
 ul #tool-brush button {   
-	background-image: url(img/ico-brush.svg);
+	background-image: url(demo-toolbar-icons-assets/ico-brush.svg);
 }
 ul #tool-eyedropper button {   
 	background-image: url(img/ico-eyedropper.svg);
@@ -459,6 +462,7 @@ ul #toggle-custom button {
 /* Color Picker */
 .colorpicker {
 	position: absolute;
+	display: none;
 	top: 50%;
 	left: 500px;
 	width: 200px;
