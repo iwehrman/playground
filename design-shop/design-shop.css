@@ -397,6 +397,7 @@ aside {
 	display: block;
 }
 #toolbar li button.selected {
+	padding: 0;
 	background-color: rgba(255,255,255,.1);
 }
 

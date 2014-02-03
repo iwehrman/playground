@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="coachmark.css" type="text/css" media="screen">
+
+  </head>
+  <body>
+
+    <div id="playground-switch" style="position: absolute; bottom: 0; right: 0; margin: auto; z-index: 9999;">
+      <select id="selectPlayground" onchange="changeFunc();">
+        <option value="/Users/nic/playground/index.html">Playground OG</option>
+        <option selected value="/Users/nic/playground/coachmarks/index.html">Coachmarks</option>
+        <option value="/Users/nic/playground/design-shop/index.html">Design Shop</option>
+      </select>
+    </div>
+
+
+      <div class="coachmark coach-swatches"></div>
+      <div class="coachmark coach-tools"></div>
+    
+    <aside id="toggle" >
+        <div   class="topcoat-button-list">
+            
+            <div id="toggle-classic" class="topcoat-button-list__item">
+                <button id="goClassic" title="GoClassic"
+                    
+                    onClick='Commands.setClassic(true)'
+                    
+                    class="topcoat-button-list__button"></button>
+            </div>
+            
+            <div id="toggle-dev" class="topcoat-button-list__item">
+                
+                <button title="GoCustom"
+                    
+                    onClick='Commands.showBoth()'
+                    
+                    class="topcoat-button-list__button"></button>
+            </div>
+
+
+    <div id="toggle-custom" class="topcoat-button-list__item">
+    
+    <button id="goCustom" title="GoCustom"
+        
+        onClick='Commands.setClassic(false)'
+        
+        class="topcoat-button-list__button"></button>
+    </div>
+
+        </div>
+
+    </aside>
+      
+        <aside id="slideshow" ><div   class="topcoat-button-list">
+           
+           <div id="toggleIconMess" class="topcoat-button-list__item">
+                <button 
+                    onClick='Commands.toggleIconMess()'
+                    class="topcoat-button-list__button"></button>
+            </div>
+            
+            <div id="rewindSlideshow" class="topcoat-button-list__item">
+                <button 
+                    onClick='Commands.rewindSlideshow()'
+                    class="topcoat-button-list__button"></button>
+            </div>
+
+                        <div id="backupSlideshow" class="topcoat-button-list__item">
+                <button 
+                    onClick='Commands.advanceSlideshow()'
+                    class="topcoat-button-list__button"></button>
+            </div>
+            
+                                    <div id="advanceSlideshow" class="topcoat-button-list__item">
+                <button 
+                    onClick='Commands.backupSlideshow()'
+                    class="topcoat-button-list__button"></button>
+            </div>
+
+        </div></aside>
+      
+    
+    <!--
+   <aside>
+    <button label="submit" onClick="ask(this)">"property":{"class":"Layers", "value":"cMRLayer" }</button>
+        <button label="submit" onClick="ask(this)">"class":"Lyr "</button>
+   <button label="submit" onClick="askClass(this)">"class":"SoFi "</button>
+   <button label="submit" onClick="askClass(this)">"class":"Dcmn"</button>
+   <button label="submit" onClick="askClass(this)">BckC</button>
+        <button label="submit" onClick="Commands.getForegroundColor()">-foreground Color-</button>
+        <button label="submit" onClick="Commands.getDocID(1)">-docID-</button>
+        <button label="submit" onClick="Commands.getDocCount()">docCount</button>
+        <button label="submit" onClick="ask(this)">"ref":"capp",  "property":"NmbD"</button>
+        <button label="submit" onClick="ask(this)">"ref":"Dcmn",  "property":"NmbL"</button>
+        <button label="submit" onClick="ask(this)">"ref":"Dcmn", "enumType":"Ordn", "value":"Trgt"</button>
+        <button label="submit" onClick="ask(this)">"ref":"Dcmn", "enumType":"Ordn", "value":"Trgt",  "property":"NmbL"</button>
+        <button label="submit" onClick="askClass(this)">Dcmn</button>
+        <button label="submit" onClick="askClass(this)">Lyrs</button>
+        <button label="submit" onClick="askClass(this)">Nm  </button>
+         <pre id='result' >
+        </pre>
+    </aside>
+    -->
+    
+   <!--
+    #define typeOrdinal						'Ordn'	// enumAll, enumFirst, enumLast, enumNext, enumPrevious, enumMiddle, enumAny, enumNone, enumTarget, enumForward, enumBackward, enumFront, enumBack, enumMerged, enumLinked.
+-->
+<!--
+<aside id="goCustom" class="panel">
+    
+    <label><input type='checkbox' onChange='PS.tools = this.checked' onPageShow='this.checked = PS.tools'/>tools</label>
+    <label><input type='checkbox' onChange='PS.controls = this.checked'/>controls</label>
+    <label><input type='checkbox' onChange='PS.tabs = this.checked'/>tabs</label>
+    <label><input type='checkbox' onChange='PS.appBar = this.checked'/>app bar</label>
+    
+</aside>
+-->
+   
+      <aside id="lotsoftools" class="hidden">
+      <div id="icondemo" class="topcoat-button-list">
+           <div id="tool-text" class="topcoat-button-list__item"><button style="background-image:url(topcoat/alert.svg);" class="topcoat-button-list__button"></button> </div>
+ <div id="tool-text" class="topcoat-button-list__item"><button style="background-image:url(topcoat/arrow_down.svg);" class="topcoat-button-list__button"></button> </div>
+ <div id="tool-text" class="topcoat-button-list__item"><button style="background-image:url(topcoat/arrow_left.svg);" class="topcoat-button-list__button"></button> </div>
+ <div id="tool-text" class="topcoat-button-list__item"><button style="background-image:url(topcoat/arrow_right.svg);" class="topcoat-button-list__button"></button> </div>
+ <div id="tool-text" class="topcoat-button-list__item"><button style="background-image:url(topcoat/arrow_up.svg);" class="topcoat-button-list__button"></button> </div>
+            <script type="text/javascript" src="icomatic/icomatic.js"></script>
+  <script type="text/javascript" src="commands.js"></script>
+  <script>
+    
+    Commands.setClassic(false);
+    
+    output = function(result) {
+        
+        delete result.XMPMetadataAsUTF8
+        
+        var resultStr =JSON.stringify(result, null, '\t');
+        PS.log(resultStr);
+        
+        
+    }
+    
+    ask = function (elt) {
+        try {
+            Commands.ask('{'+elt.innerHTML+'}');
+        } catch (e) {
+            PS.log(e + "")
+        }
+        
+    }
+
+askClass = function (elt) {
+    
+    try {
+        var className = elt.innerHTML;
+        
+        PS.log(className);
+  
+    var result = PS.simpleGet(className)
+    
+    output(result);
+//        elt = document.getElementById("result");
+//        elt.innerHTML =(resultStr);
+        
+        
+    } catch (e) {
+        PS.log(e + "")
+    }
+    
+}
+
+</script>
+<script type="text/javascript" src="../global.js"></script>
+<script type="text/javascript" src="commands.js"></script>
+  </body>
+</html>
