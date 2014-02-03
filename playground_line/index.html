@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="topcoat-button-list-desktop-dark.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+        <script type="text/javascript" src="commands.js"></script>
+    </head>
+  <body>
+      <aside id="toolbar">
+          <div id="toolpallet">
+          <div id="pallet">
+              <div id="PencilH2" class="pallet-item-pile">
+                   <button title="2H"
+                onClick='Commands.PencilH2();'
+                class="item mark_on">2H</button>
+              </div>
+            <div id="PencilHB" class="pallet-item-pile">
+                   <button title="HB"
+                onClick='Commands.PencilHB();'
+                class="item mark_off">HB</button>
+            </div>
+          <div id="Pencil25" class="pallet-item-pile">
+                   <button title="25"
+                onClick='Commands.Pencil25();'
+                class="item mark_off">.25</button>
+            </div>
+            <div id="Pencil50" class="pallet-item-pile">
+                   <button title=".50"
+                onClick='Commands.Pencil50();'
+                class="mark_off">.50</button>
+            </div>
+            <div id="PencilPC" class="pallet-item-pile">
+                   <button title="PC"
+                onClick='Commands.PencilPC();'
+                class="mark_off">PC</button>
+            </div>
+            <div id="blank" class="pallet-item-pile">
+                   <button title="color1"
+                onClick='Commands.setColor1();'
+                class="mark_off"></button>
+            </div>
+           <div id="color1" class="pallet-item-pile">
+                   <button title="color1"
+                onClick='Commands.setForegroundColor(44,62,81);'
+                class="mark_on"></button>
+            </div>
+            <div id="color2" class="pallet-item-pile">
+                   <button title="color2"
+                onClick='Commands.setForegroundColor(234,75,53);'
+                class="mark_off"></button>
+            </div>
+             <div id="color3" class="pallet-item-pile">
+                   <button title="color1"
+                onClick='Commands.setForegroundColor(236,240,241);'
+                class="mark_off"></button>
+            </div>
+           <div id="color4" class="pallet-item-pile">
+                   <button title="color1"
+                onClick='Commands.setForegroundColor(45,155,222);'
+                class="mark_off"></button>
+            </div>
+            <div id="color5" class="pallet-item-pile">
+                   <button title="color1"
+                onClick='Commands.setColor1();'
+                class="mark_off"></button>
+            </div>
+              <div id="blank" class="pallet-item-pile">
+                   <button title="color1"
+                onClick='Commands.setColor1();'
+                class="mark_off"></button>
+            </div>
+          </div>
+      </div>
+        </aside>
+<!--      
+      <aside id="tools">
+      <div class="topcoat-button-list">
+        <div id="tool-move" class="topcoat-button-list__item">
+          <button title="Move"
+              onClick='Commands.moveTool({autoSelect:true, groups:false});'
+       
+              class="topcoat-button-list__button"/>
+        </div>
+          
+          
+        <div id="tool-text" class="topcoat-button-list__item">
+          <button title="Text"
+              onClick='Commands.selectTool("typeCreateOrEditTool");'
+
+              class="topcoat-button-list__button"></button>
+        </div>
+        <div id="tool-rounded-rect" class="topcoat-button-list__item">
+            <button title="Rounded Rectangle"
+                
+                onClick='Commands.selectTool("roundedRectangleTool");'
+                
+                
+                class="topcoat-button-list__button"></button>
+        </div>
+        
+        <div id="tool-rounded-rect" class="topcoat-button-list__item">
+            <button title="Rounded Rectangle"
+                
+                onClick='PS.call("slct",{"null":{ref:{"class":"ellipseTool"}}})'
+                
+                class="topcoat-button-list__button"></button>
+        </div>        
+    
+        <div id="tool-blue-pencil" class="topcoat-button-list__item">
+            <button title="Blue Pencil"
+                onClick='Commands.bluePencil();'
+                class="topcoat-button-list__button"></button>
+        </div>
+<!--
+<div id="tool-blue-pencil" class="topcoat-button-list__item">
+    <button title="Blue Pencil"
+        onClick='Commands.makeLayer("fooLayer")'
+        class="topcoat-button-list__button"></button>
+</div>
+-->
+
+      </div>
+    </aside>
+
+    <aside id="properties" class="panel">
+
+      <select id="font">
+        <option>Typeface name</option>
+        <option>Typeface name</option>
+        <option>Typeface name</option>
+        <option>Typeface name</option>
+      </select>
+
+      <div class="linked-field">
+        <a href="#" class="btn-link"></a>
+        <input type="text" placeholder="top">
+        <input type="text" placeholder="right">
+        <input type="text" placeholder="bottom">
+        <input type="text" placeholder="left">
+      </div>
+
+      <div class="property-color">
+        <input id="the-color" type="color" value="#bada55">
+        <label for="the-color">#bada55</label>
+      </div>
+
+    </aside>
+    
+    
+    <aside id="toggle" >
+        <div   class="topcoat-button-list">
+            
+            <div id="toggle-classic" class="topcoat-button-list__item">
+                <button id="goClassic" title="GoClassic"
+                    
+                    onClick='Commands.setClassic(true)'
+                    
+                    class="topcoat-button-list__button"></button>
+            </div>
+            
+            <div id="toggle-dev" class="topcoat-button-list__item">
+                
+                <button title="GoCustom"
+                    
+                    onClick='Commands.showBoth()'
+                    
+                    class="topcoat-button-list__button"></button>
+            </div>
+
+
+    <div id="toggle-custom" class="topcoat-button-list__item">
+    
+    <button id="goCustom" title="GoCustom"
+        
+        onClick='Commands.setClassic(false)'
+        
+        class="topcoat-button-list__button"></button>
+    </div>
+
+        </div>
+
+    </aside>
+      
+    
+    <!--
+   <aside>
+    <button label="submit" onClick="ask(this)">"property":{"class":"Layers", "value":"cMRLayer" }</button>
+        <button label="submit" onClick="ask(this)">"class":"Lyr "</button>
+   <button label="submit" onClick="askClass(this)">"class":"SoFi "</button>
+   <button label="submit" onClick="askClass(this)">"class":"Dcmn"</button>
+   <button label="submit" onClick="askClass(this)">BckC</button>
+        <button label="submit" onClick="Commands.getForegroundColor()">-foreground Color-</button>
+        <button label="submit" onClick="Commands.getDocID(1)">-docID-</button>
+        <button label="submit" onClick="Commands.getDocCount()">docCount</button>
+        <button label="submit" onClick="ask(this)">"ref":"capp",  "property":"NmbD"</button>
+        <button label="submit" onClick="ask(this)">"ref":"Dcmn",  "property":"NmbL"</button>
+        <button label="submit" onClick="ask(this)">"ref":"Dcmn", "enumType":"Ordn", "value":"Trgt"</button>
+        <button label="submit" onClick="ask(this)">"ref":"Dcmn", "enumType":"Ordn", "value":"Trgt",  "property":"NmbL"</button>
+        <button label="submit" onClick="askClass(this)">Dcmn</button>
+        <button label="submit" onClick="askClass(this)">Lyrs</button>
+        <button label="submit" onClick="askClass(this)">Nm  </button>
+         <pre id='result' >
+        </pre>
+    </aside>
+    -->
+    
+   <!--
+    #define typeOrdinal						'Ordn'	// enumAll, enumFirst, enumLast, enumNext, enumPrevious, enumMiddle, enumAny, enumNone, enumTarget, enumForward, enumBackward, enumFront, enumBack, enumMerged, enumLinked.
+-->
+<!--
+<aside id="goCustom" class="panel">
+    
+    <label><input type='checkbox' onChange='PS.tools = this.checked' onPageShow='this.checked = PS.tools'/>tools</label>
+    <label><input type='checkbox' onChange='PS.controls = this.checked'/>controls</label>
+    <label><input type='checkbox' onChange='PS.tabs = this.checked'/>tabs</label>
+    <label><input type='checkbox' onChange='PS.appBar = this.checked'/>app bar</label>
+    
+</aside>
+-->
+   
+
+
+
+<script>
+    
+    Commands.setClassic(false);
+    
+    output = function(result) {
+        
+        delete result.XMPMetadataAsUTF8
+        
+        var resultStr =JSON.stringify(result, null, '\t');
+        PS.log(resultStr);
+        
+        
+    }
+    
+    ask = function (elt) {
+        try {
+            Commands.ask('{'+elt.innerHTML+'}');
+        } catch (e) {
+            PS.log(e + "")
+        }
+        
+    }
+
+askClass = function (elt) {
+    
+    try {
+        var className = elt.innerHTML;
+        
+        PS.log(className);
+  
+    var result = PS.simpleGet(className)
+    
+    output(result);
+//        elt = document.getElementById("result");
+//        elt.innerHTML =(resultStr);
+        
+        
+    } catch (e) {
+        PS.log(e + "")
+    }
+    
+}
+
+
+
+    </script>
+  </body>
+</html>
