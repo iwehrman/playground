@@ -328,6 +328,43 @@ ul.property-inspector > li {
 ul.property-inspector > li:last-child {
 	margin: 0;
 }
+
+/*
+
+————————————————— HUD
+*/
+
+.overlay {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 150px;
+  height: 150px;
+  padding: 15px;
+  background-color: rgba(0,0,0,.6);
+  border-radius: 6px;
+  box-shadow: 0 .1px 4px 0 rgba(0,0,0,.5);
+  opacity: 0;
+  display: block;
+}
+.overlay.visible {
+  opacity: 1;
+/*  -webkit-animation: showcurrenttool 1s 0;*/
+}
+.overlay.hidden {
+  opacity: 0;
+/*  -webkit-animation: hidecurrenttool 1s 0;*/
+}
+.overlay span.icomatic {
+  font-size: 80px;
+  line-height: 130px;
+}
+
 /*
 
 ————————————————— Toolbar
@@ -366,45 +403,58 @@ aside {
 #tools li button {
 	border-bottom: 1px solid rgba(255,255,255,.05);
 }
-ul #tool-move button {
+ul #tool-move button,
+#overlay.tool-move {
 	background-image: url(img/ico-move.svg);
 }
-ul #tool-text button {   
+ul #tool-text button,
+#overlay.tool-text {
 	background-image: url(img/ico-text.svg);
 }
-ul #tool-rounded-rect button {
+ul #tool-rounded-rect button,
+#overlay.tool-rounded-rect {
 	background-image: url(img/ico-rounded-rect.svg);
 }
-ul #tool-rect button {
+ul #tool-rect button,
+#overlay.tool-rect {
 	background-image: url(img/ico-rect.svg);
 }
-ul #tool-circle button {
+ul #tool-circle button,
+#overlay.tool-circle {
 	background-image: url(img/ico-circle.svg);
 }
-ul #tool-pen button {   
+ul #tool-pen button,
+#overlay.tool-pen {   
 	background-image: url(img/ico-pen.svg);
 }
-ul #tool-brush button {   
-	background-image: url(demo-toolbar-icons-assets/ico-brush.svg);
+ul #tool-brush button,
+#overlay.tool-brush {   
+	background-image: url(img/ico-brush.svg);
 }
-ul #tool-eyedropper button {   
+ul #tool-eyedropper button,
+#overlay.tool-eyedropper {
 	background-image: url(img/ico-eyedropper.svg);
 }
-ul #tool-rectangle button {
+ul #tool-rectangle button,
+#overlay.tool-rectangle {
 	background-image: url(topcoat/rectangle.svg);
 }
-ul #tool-rounded-rect button {
+ul #tool-rounded-rect button,
+#overlay.tool-rounded-rect {
 	background-image: url(img/ico-rounded-rect.svg);
 }
-ul #tool-lasso button {
+ul #tool-lasso button,
+#overlay.tool-lasso {
 	background-image: url(img/ico-lasso.svg);
 }
-ul #tool-crop button {
+ul #tool-crop button,
+#overlay.tool-crop {
 	background-image: url(img/ico-crop.svg);
 }
-ul #tool-blue-pencil button {
+ul #tool-blue-pencil button,
+#overlay.tool-blue-pencil {
 	color: #41B3E1;
-/*	background-image: url(img/ico-blue-pencil.svg);*/
+	background-image: url(img/ico-blue-pencil.svg);
 }
 
 #toggle {
@@ -415,48 +465,14 @@ ul #tool-blue-pencil button {
 	border-top: 1px solid rgba(255,255,255,.05);
 }
 
-
-ul #toggle-classic button {
+ul #toggle-classic {
 	background-image: url(topcoat/alert.svg);
 }
-ul #toggle-dev button {
+ul #toggle-dev {
 	background-image: url(topcoat/build.svg);
 }
-ul #toggle-custom button {
+ul #toggle-custom {
 	background-image: url(topcoat/pencil.svg);
-}
-
-/* HUD */
-
-.overlay {
-  position: absolute;
-  color: #fff;
-  text-align: center;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 150px;
-  height: 150px;
-  padding: 15px;
-  background-color: rgba(0,0,0,.6);
-  border-radius: 6px;
-  box-shadow: 0 .1px 4px 0 rgba(0,0,0,.5);
-  opacity: 0;
-  display: block;
-}
-.overlay.visible {
-  opacity: 1;
-/*  -webkit-animation: showcurrenttool 1s 0;*/
-}
-.overlay.hidden {
-  opacity: 0;
-/*  -webkit-animation: hidecurrenttool 1s 0;*/
-}
-.overlay span.icomatic {
-  font-size: 80px;
-  line-height: 130px;
 }
 
 /* Color Picker */

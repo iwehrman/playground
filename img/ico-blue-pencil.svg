@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <title>ico-blue-pencil</title>
-    <description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <path d="M7.326,31.949 C7.326,31.949 0.219,48.565 0.884,49.217 C1.564,49.867 18.213,42.834 18.213,42.834 L18.605,42.442 L7.718,31.555 L7.326,31.949" id="Fill-1" fill="#1E8CE2" sketch:type="MSShapeGroup"></path>
-        <path d="M10.396,28.846 L21.266,39.781 L42.44,18.667 L31.5,7.728 L10.396,28.846" id="Fill-2" fill="#1E8CE2" sketch:type="MSShapeGroup"></path>
-        <path d="M47.083,3 C43.292,-0.792 39.446,-0.202 37.678,1.551 L34.094,5.15 L44.996,16.036 L48.623,12.393 C50.257,10.76 50.833,6.75 47.083,3" id="Fill-3" fill="#fE8CE2" sketch:type="MSShapeGroup"></path>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-4 -4 50 50" enable-background="new -4 -4 50 50" xml:space="preserve">
+<g>
+	<path fill="#41B3E1" d="M19.6,29.2l3.8,3.8c0,0,15.8-15.8,15.8-15.8c1.9-1.9,1.8-2.7,0-4.5c0,0-1.5-1.5-1.5-1.5L19.6,29.2z
+		 M17.9,27.5l18-18l-3.6-3.6l-18,18L17.9,27.5z M30.9,4.4l-1.5-1.5c-1.9-1.9-2.6-1.9-4.5,0L9.1,18.7l3.8,3.8L30.9,4.4z M7.6,20.2
+		L0.5,41.5l21.3-7L7.6,20.2z M6.1,30.9l5.3,5.3l-7.6,2.3L6.1,30.9z"/>
+</g>
 </svg>
