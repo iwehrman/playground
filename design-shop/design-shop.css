@@ -130,10 +130,12 @@ aside.panels {
 .topcoat-tree > li > ul {
 	border-bottom: 1px solid rgba(255,255,255,.05);
 }
-.topcoat-tree > li label + ul > li { 
+.topcoat-tree > li label + ul > li,
+.layers > li label + ul > li { 
 	opacity: 0;
 	height: 0%;
 }
+
 .topcoat-tree > li > label {
 	cursor: pointer;
 	display: block;
@@ -240,14 +242,78 @@ ul.property-inspector li {
   padding: 10px 15px;
 }
 ul.layers li:hover {
-	background-color: rgba(255,255,255,.05);
+	background-color: #323232;
 }
 ul.layers li.quiet:hover {
 	background-color: transparent;
 }
 ul.layers a.icomatic {
-	margin-right: 10px;
+	padding-right: 10px;
 }
+ul.layers label a.icomatic {
+	padding-right: 14px;
+}
+
+.layers li label span {
+	margin-right: 15px;
+}
+.layers > li > ul {
+	padding: 0;
+}
+.layers > li ul > li:first-child {
+	padding-top: 0;
+}
+.layers > li ul > li:last-child {
+	padding-bottom: 0;
+}
+.layers > li ul > li {
+	padding: 10px 0;
+}
+.layers > li input[type="checkbox"] ~ ul {
+	height: 0;
+	-webkit-transition: all .1s cubic-bezier(0.455, 0.030, 0.515, 0.955);
+}
+
+.layers > li! > input[type="checkbox"]:checked ~ ul,
+.layers > li input[type="checkbox"]:checked ~ ul {
+	color: #454545;
+	background-color: #f6f6f6;
+}
+.layers li input[type="checkbox"].toggle {
+	-webkit-appearance: none;
+	margin: 0 !important;
+	position: relative;
+	left: 0;
+	top: 0;
+	opacity: 1;
+	z-index: 2;
+	cursor: pointer;
+	height: 20px;
+	width: 20px;
+	background: transparent url(topcoat/view.svg) no-repeat 50% 50%;
+	background-size: 20px;
+}
+.layers li input[type="checkbox"].toggle:checked {
+	background-position: -20px -20px;
+	background-color: rgba(255,255,255,.1);
+}
+.layers input[type="checkbox"] + label {
+	margin: 0;
+	padding: 0;
+}
+.layers input[type="checkbox"] + label:after,
+.layers input[type="checkbox"]:checked + label:after {
+	content: '';
+}
+.layers > li > ul li a.icomatic:nth-child(2) {
+	padding-left: 15px;
+	border-left: 1px dotted rgba(255, 255, 255, .2);
+}
+.layers > li > ul ul > li a.icomatic:nth-child(2) {
+	padding-left: 25px;
+}
+
+
 ul.property-inspector input[type="text"] {
 	width: 100px;
 }
@@ -333,7 +399,7 @@ ul.property-inspector > li:last-child {
 ————————————————— HUD
 */
 
-.overlay {
+#overlay {
   position: absolute;
   color: #fff;
   text-align: center;
@@ -348,20 +414,29 @@ ul.property-inspector > li:last-child {
   background-color: rgba(0,0,0,.6);
   border-radius: 6px;
   box-shadow: 0 .1px 4px 0 rgba(0,0,0,.5);
+  -webkit-transform: scale(0,0);
   opacity: 0;
   display: block;
 }
-.overlay.visible {
+#overlay.visible {
   opacity: 1;
+  -webkit-transform: scale(1,1);
 /*  -webkit-animation: showcurrenttool 1s 0;*/
 }
-.overlay.hidden {
+#overlay.hidden {
   opacity: 0;
+  -webkit-transform: scale(0,0);
 /*  -webkit-animation: hidecurrenttool 1s 0;*/
 }
-.overlay span.icomatic {
+#overlay span.icomatic {
   font-size: 80px;
   line-height: 130px;
+}
+.hidden,
+.visible {
+  transition: all;
+  transition-duration: .1s;
+  transition-timing-function: cubic-bezier(0.455, 0.030, 0.515, 0.955); 
 }
 
 /*
@@ -438,7 +513,7 @@ ul #tool-eyedropper button,
 }
 ul #tool-rectangle button,
 #overlay.tool-rectangle {
-	background-image: url(topcoat/rectangle.svg);
+	background-image: url(img/ico-rectangle.svg);
 }
 ul #tool-rounded-rect button,
 #overlay.tool-rounded-rect {

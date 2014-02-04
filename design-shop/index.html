@@ -37,9 +37,9 @@
         <option value="../index.html">Playground OG</option>
         <option value="../coachmarks/index.html">Coachmarks</option>
         <option selected value="../design-shop/index.html">Design Shop</option>
+        <option value="../playground_line/index.html">Line</option>
       </select>
     </div>
-
 
 
 <!-- Toolbar !-->
@@ -98,7 +98,7 @@
 </aside>  
 
 <!-- HUD !-->
-<div class="overlay"><span class="icomatic">brush</span></div>
+<div id="overlay" class="overlay"><span class="icomatic">brush</span></div>
 
 <!-- Paneling !-->
   <aside id="panels" class="panels">
@@ -171,7 +171,9 @@
         <input type="checkbox" checked id="f2">
         <label for="f2">Layers</label>
           <ul class="layers">
+<!--
             <li class="quiet">
+
               <select name="blendmodes" class="topcoat-select">
                 <option value="normal">Normal</option>
                 <option value="dissolve">Dissolve</option>
@@ -199,14 +201,34 @@
                 <option value="normal">10%</option>
                 <option value="normal">0%</option>
               </select>
+
             </li>
+!-->
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic" style="color: #41b3e1;">pencil</a> Blue Pencil</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text layer</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">imageoutline</a> Bitmap layer</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">imageoutline</a> Bitmap layer</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text layer</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text layer</li>
-            <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">folder</a> Group</li>
+            <li>
+              <input type="checkbox" id="g1">
+              <label for="g1"><a class="icomatic">view</a><a class="icomatic">folder</a> Group</label>
+              <ul>
+                <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
+                <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
+                <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
+                <li>
+                  <input type="checkbox" id="gg1">
+                  <label for="gg1"><a class="icomatic">view</a><a class="icomatic">folder</a> Group</label>
+                  <ul>
+                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
+                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
+                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
+                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">imageoutline</a> Bitmap layer</li>
           </ul>
       </li>

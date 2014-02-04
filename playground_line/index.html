@@ -6,8 +6,19 @@
     <link rel="stylesheet" href="topcoat-button-list-desktop-dark.css" type="text/css" media="screen">
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
         <script type="text/javascript" src="commands.js"></script>
+        <script type="text/javascript" src="../global.js"></script>
     </head>
   <body>
+
+    <div id="playground-switch" style="position: absolute; bottom: 0; right: 0; margin: auto; z-index: 9999;">
+      <select id="selectPlayground" onchange="changeFunc();">
+        <option value="../index.html">Playground OG</option>
+        <option value="../coachmarks/index.html">Coachmarks</option>
+        <option value="../design-shop/index.html">Design Shop</option>
+        <option selected value="../playground_line/index.html">Line</option>
+      </select>
+    </div>
+
       <aside id="toolbar">
           <div id="toolpallet">
           <div id="pallet">
