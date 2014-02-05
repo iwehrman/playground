@@ -612,6 +612,7 @@ ul #toggle-custom button {
 	height: 40px;
 	display: block;
 	background-color: transparent;
+	z-index: 99999;
 }
 
 #popover,
