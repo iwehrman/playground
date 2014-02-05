@@ -597,7 +597,7 @@ Commands.moveTool = function(opts) {
     opts = opts || {}
     Commands.selectTool("moveTool", {
         ASGr: opts.groups || 0,
-/*        Abbx: opts.transform || 0,*/
+        Abbx: opts.transform || 0,
         AtSl: opts.autoSelect || 0
     })
 }
@@ -617,6 +617,81 @@ C = {
             value: "Trgt"
         }
     }
+}
+
+
+// BARGGGGGGH! Trying to determine x and y for the popover
+var thePopover = document.getElementById('popover');
+var dde = document.documentElement;
+var documentHeight = Math.max(dde.scrollHeight, dde.offsetHeight, dde.clientHeight);
+var documentWidth = Math.max(dde.scrollWidth, dde.offsetWidth, dde.clientWidth);
+var canvasHeight = (PS.get("document").Hght.value)/2;
+var canvasWidth = PS.get("document").Wdth.value;
+var zeroY = documentHeight - canvasHeight;
+var selectionBottom;
+var selectionLeft;
+var selectionWidth;
+var popoverY;
+var popoverX;
+
+function displayPopover(obj) {
+
+    var popoverHeight;
+    var popoverWidth;
+
+    var popoverTimer;
+
+    killPopover();
+
+    thePopover.className = "hidden";
+
+    popoverHeight = thePopover.clientHeight/2;
+    popoverWidth = thePopover.clientWidth/2;
+/*
+    console.log("Doc Height: "+documentHeight);
+    console.log("Canvas Height: "+canvasHeight);
+    console.log("Doc Width: "+documentWidth);
+    console.log("Zero Y: "+zeroY);
+*/
+
+    selectionLeft = PS.get("Lyr ").bounds.Left.value;
+    selectionBottom = PS.get("Lyr ").bounds.Btom.value/2;
+    selectionWidth = PS.get("Lyr ").bounds.Wdth.value/2;
+
+
+// Dividing these by 2 to account for retina weirdness (no idea I'm just being a math moron)?
+    popoverX = (popoverWidth/2)+(selectionLeft/2)+(selectionWidth/2)+"px";
+    popoverY = selectionBottom/2+"px";
+
+    function initiatePopover() {
+        console.log("starting popover timer");
+      popoverTimer = (
+        setTimeout(
+          function() {
+            thePopover.className = "visible";
+          },150)
+      );
+    }
+    function killPopover() {
+        console.log("stopping timer");
+        clearTimeout(popoverTimer);
+    }
+
+    thePopover.style.left = popoverX;
+    thePopover.style.top = popoverY;
+    initiatePopover();
+
+// This needs to happen after it moves into position
+//        thePopover.className = "visible";
+
+
+/*
+    console.log(selectionBottom);
+    console.log("doc height "+documentHeight);
+    console.log("popover x: "+popoverX);
+    console.log("popover y: "+popoverY);
+*/
+
 }
 
 
@@ -933,9 +1008,8 @@ Commands.getFontList = function() {
 
 
 Commands.displayPropertiesName = function(name) {
-
     document.getElementById("current-object").innerHTML = name;
-
+    displayPopover(document.getElementById("popover"));
 }
 
 Commands.displayPropertiesFill = function(layerRef) {
