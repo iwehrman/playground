@@ -1,74 +1,43 @@
-.coachmark {
+@import "../global.css";
+
+#coach-swatches,
+#coach-tools {
 	position: absolute;
 	display: block;
-	transition-property: all;
-	transition-duration: .1s;
-	transition-timing-function: cubic-bezier(0.455, 0.030, 0.515, 0.955);
-}
-
-.hidden {
 	opacity: 0;
+	-webkit-transition: all .6s cubic-bezier(0.455, 0.030, 0.515, 0.955);
 }
-
-.coach-swatches {
+#coach-swatches {
 	top: 250px;
-	right: 100px;
-	opacity: 0;
+	right: 50px;
 	background: url(coachmark-assets/coach-swatches.png) no-repeat;
+	background-size: 428px 154px;
 	width: 428px;
 	height: 154px;
-	-webkit-animation: right-in 1s;
+	-webkit-transition-delay: 1s;
 	-webkit-transform: rotate(-5deg);
 	-webkit-transform: origin(center, right);
 }
-.coach-tools {
+#coach-tools {
 	top: 40px;
-	left: 80px;
+	left: 50px;
 	width: 428px;
 	height: 264px;
-	-webkit-animation: left-in 1s;
 	background: url(coachmark-assets/coach-tools.png) no-repeat;
+	background-size: 428px 264px;
+	-webkit-transform: rotate(-5deg);
+	-webkit-transform: origin(center, left);
 }
-.coach-swatches,
-.coach-tools {
-	-webkit-animation-fill-mode:forwards;
+#coach-tools.animate {
+	left: 0;
+	opacity: 1;
+	-webkit-transform: rotate(0);
 }
-
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
-	.coach-swatches {
-		background-size: 428px 154px;
-	}
-	.coach-tools {
-	    background-size: 428px 264px;
-	}
+#coach-swatches.animate {
+	right: 0;
+	opacity: 1;
+	-webkit-transform: rotate(0);
 }
-
-/* Animation */
-@-webkit-keyframes right-in
-{
-	from {
-		-webkit-transform: rotate(-10deg);
-		right: 100px;
-		opacity: 0;
-	}
-	to {
-		-webkit-transform: rotate(0deg);
-		right: 0;
-		opacity: 1;
-	}
-}
-@-webkit-keyframes left-in
-{
-	from {
-		-webkit-transform: rotate(-10deg);
-		left: 140px;
-		opacity: 0;
-	}
-	to {
-		-webkit-transform: rotate(0deg);
-		left: 80px;
-		opacity: 1;
-	}
+.hidden {
+	opacity: 0;
 }

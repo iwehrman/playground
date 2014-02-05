@@ -1,4 +1,3 @@
-
 onPSEvent = function(command, params) {
 
     var fn = eventHandlers[command]
@@ -20,6 +19,7 @@ eventHandlers = {
      }
      //console.log(target.ref)
      if(ref == "Lyr ") {
+// Popover could probably start here?
         var layerCache = PS.get("Lyr ");
         console.log("Name: ", target.name);
         console.log("Opacity: ", layerCache["Opct"]);
@@ -265,6 +265,8 @@ var layerKindMap = function(arr) {
   return layerMap[arr];
 }
 
+var toolClass;
+
 var toolMap = function(arr) {
    //console.log("toolmap: " + arr);
    var mappedTool;
@@ -272,36 +274,47 @@ var toolMap = function(arr) {
 
     case "moveTool":
         mappedTool = "Move"
+        toolClass = "tool-move"
     break;
     case "roundedRectangleTool":
         mappedTool = "Rounded Rectangle"
+        toolClass = "tool-rounded-rect"
     break;
     case "rectangleTool":
         mappedTool = "Rectangle"
+        toolClass = "tool-rectangle"
     break;
     case "ellipseTool":
         mappedTool = "Ellipse"
+        toolClass = "tool-ellipse"
     break;
     case "penTool":
         mappedTool = "Path"
+        toolClass = "tool-pen"
     break;
     case "PbTl":
         mappedTool = "Paintbrush"
+        toolClass = "tool-brush"
     break;
     case "eyedropperTool":
         mappedTool = "Eyedropper"
+        toolClass = "tool-eyedropper"
     break;
     case "typeCreateOrEditTool":
         mappedTool = "Type"
+        toolClass = "tool-text"
     break;
     case "lassoTool":
         mappedTool = "Lasso"
+        toolClass = "tool-lasso"
     break;
     case "cropTool":
         mappedTool = "Crop"
+        toolClass = "tool-crop"
     break;
     case "Blue Pencil":
         mappedTool = "Blue Pencil"
+        toolClass = "tool-blue-pencil"
     break;
     default:
         mappedTool = arr;
@@ -1088,7 +1101,7 @@ Commands.displayToolOverlay = function(toolName) {
     var currentToolTimer;
     var element = document.getElementById("overlay");
 
-    element.className = "visible";
+    element.className = "visible "+toolClass;
 //    console.log(element.className);
     toolIndicatorTimer();
 

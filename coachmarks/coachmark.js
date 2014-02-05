@@ -12,6 +12,5 @@ var coachmark = getElementByClass("coachmark");
 
 coachmark.onclick= function() {
     // this adds the 'active' class to the classes that the element already has
-
     coachmark.className = coachmark.className + ' hidden';
 };

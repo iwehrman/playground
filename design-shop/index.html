@@ -11,16 +11,6 @@
       #slide { width: 30px; height: 200px }
     </style>
     <script type="text/javascript">
-
-      // Toggle selected style for toolbars    
-      // var selectedTool;
-      // function CngClass(obj){
-      //   if (selectedTool) selectedTool.className='';
-      //   obj.className='selected';
-      //   selectedTool=obj;
-      //   console.log(obj);
-      // }
-
       // Update whatever needs updating when the radius is changed
       function updateTextInput(val, theElement) {
         var currentObject;
@@ -32,8 +22,8 @@
   </head>
   <body>
 
-    <div id="playground-switch" style="position: absolute; bottom: 0; right: 0; margin: auto; z-index: 9999;">
-      <select id="selectPlayground" onchange="changeFunc();">
+    <div id="playground-switch">
+      <select class="topcoat-select" id="selectPlayground" onchange="changeFunc();">
         <option value="../index.html">Playground OG</option>
         <option value="../coachmarks/index.html">Coachmarks</option>
         <option selected value="../design-shop/index.html">Design Shop</option>
@@ -78,6 +68,9 @@
     <li id="tool-blue-pencil">
       <button name="Blue Pencil" onClick='Commands.bluePencil();' class="topcoat-icon-button--large"></button>
     </li>
+    <li id="tool-liker">
+      <button name="Blue Pencil" onClick='Commands.bluePencil();' class="topcoat-icon-button--large icomatic">like</button>
+    </li>
   </ul>
 <!-- Playground Controls !-->
   <ul id="toggle" class="topcoat-button-list">
@@ -98,7 +91,7 @@
 </aside>  
 
 <!-- HUD !-->
-<div id="overlay" class="overlay"><span class="icomatic">brush</span></div>
+<div id="overlay" class="overlay"></div>
 
 <!-- Paneling !-->
   <aside id="panels" class="panels">
@@ -173,7 +166,6 @@
           <ul class="layers">
 
             <li class="quiet">
-
               <select name="blendmodes" class="topcoat-select">
                 <option value="normal">Normal</option>
                 <option value="dissolve">Dissolve</option>
@@ -201,7 +193,6 @@
                 <option value="normal">10%</option>
                 <option value="normal">0%</option>
               </select>
-
             </li>
 
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic" style="color: #41b3e1;">pencil</a> Blue Pencil</li>

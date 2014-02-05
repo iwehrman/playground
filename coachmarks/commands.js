@@ -5,7 +5,6 @@ onPSEvent = function(command, params) {
     if (fn) fn(params)
     //    console.log(command)
     //    console.log(command,params)
-    playgroundSwitcher();
 }
 
 eventHandlers = {
@@ -1323,7 +1322,7 @@ Commands.setVisSets = function(classic, notClassic) {
 
 Commands.setClassic = function(classic) {
     Commands.setVisSets(classic, !classic)
-    document.getElementById("toggle").className = classic ? "classic" : "custom"
+//    document.getElementById("toggle").className = classic ? "classic" : "custom"
     document.body.className = classic ? "classic" : "custom"
 }
 
