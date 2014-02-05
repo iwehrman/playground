@@ -476,9 +476,7 @@ aside {
 #tools li button {
 	border-bottom: 1px solid rgba(255,255,255,.05);
 }
-ul #tool-move button {
-	background-image: url(icons-toolbar-assets/ico-move.png);
-}
+ul #tool-move button,
 #overlay.tool-move {
 	background-image: url(img/ico-move.svg);
 }
