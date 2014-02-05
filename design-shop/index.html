@@ -32,11 +32,12 @@
   </head>
   <body onload="Commands.displayLayers()">
 
-    <div id="playground-switch" style="position: absolute; bottom: 0; right: 0; margin: auto; z-index: 9999;">
-      <select id="selectPlayground" onchange="changeFunc();" class="topcoat-select">
-        <option value="../index.html">Playground OG</option>
+    <div id="playground-switch">
+      <select class="topcoat-select" id="selectPlayground" onchange="changeFunc();">
+        <option value="../index.html">Classic</option>
         <option value="../coachmarks/index.html">Coachmarks</option>
-        <option selected value="../design-shop/index.html">Design Shop</option>
+        <option value="../design-shop/index.html">Design Shop</option>
+        <option selected value="../ecc/index.html">Popover Test</option>
       </select>
     </div>
 

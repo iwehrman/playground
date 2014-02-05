@@ -5,7 +5,6 @@ onPSEvent = function(command, params) {
     if (fn) fn(params)
     //    console.log(command)
     //    console.log(command,params)
-    playgroundSwitcher();
 }
 
 eventHandlers = {
