@@ -617,7 +617,7 @@ ul #toggle-custom button {
 	box-shadow: 0 6px 10px 0 rgba(0,0,0,.4);
 	color: #454545;
 	-webkit-transform: scale(0,0);
-	-webkit-transform: origin(center, 100%);
+	-webkit-transform: origin(center, bottom) !important;
 
 	-webkit-transition: -webkit-transform .14s cubic-bezier(0.455, 0.030, 0.515, 0.955);
 }

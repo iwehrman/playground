@@ -11,6 +11,16 @@
       #slide { width: 30px; height: 200px }
     </style>
     <script type="text/javascript">
+
+      // Toggle selected style for toolbars    
+      // var selectedTool;
+      // function CngClass(obj){
+      //   if (selectedTool) selectedTool.className='';
+      //   obj.className='selected';
+      //   selectedTool=obj;
+      //   console.log(obj);
+      // }
+
       // Update whatever needs updating when the radius is changed
       function updateTextInput(val, theElement) {
         var currentObject;
@@ -20,16 +30,16 @@
 
     </script>
   </head>
-  <body>
+  <body onload="Commands.displayLayers()">
 
-    <div id="playground-switch">
-      <select class="topcoat-select" id="selectPlayground" onchange="changeFunc();">
+    <div id="playground-switch" style="position: absolute; bottom: 0; right: 0; margin: auto; z-index: 9999;">
+      <select id="selectPlayground" onchange="changeFunc();" class="topcoat-select">
         <option value="../index.html">Playground OG</option>
         <option value="../coachmarks/index.html">Coachmarks</option>
         <option selected value="../design-shop/index.html">Design Shop</option>
-        <option value="../ecc/index.html">Popover Test</option>
       </select>
     </div>
+
 
 
 <!-- Toolbar !-->
@@ -67,9 +77,6 @@
     </li>
     <li id="tool-blue-pencil">
       <button name="Blue Pencil" onClick='Commands.bluePencil();' class="topcoat-icon-button--large"></button>
-    </li>
-    <li id="tool-liker">
-      <button name="Blue Pencil" onClick='Commands.bluePencil();' class="topcoat-icon-button--large icomatic">like</button>
     </li>
   </ul>
 <!-- Playground Controls !-->
@@ -117,7 +124,7 @@
                   <small class="">Fill:</small> <a onclick="replyClick(this.id);" id="current-fill-color" href="#" class="color-well" style="background-color:" +hex+";"> </a> <input id="text-fill-color" class="topcoat-text-input quiet value" type="text" value="">
                 </div>
                 <div class="pi-block">
-                  <small>Stroke:</small> <a onclick="replyClick(this.id);" onupdate="Commands.setFillColor(this.style.backgroundColor);" id="current-border-color" href="#" class="color-well" style="background-color: #dcffd0;"> </a> <input id="text-border-color" class="topcoat-text-input quiet value" type="text" placeholder="none" value="">
+                  <small>Stroke:</small> <a onclick="replyClick(this.id);" onupdate="Commands.setFillColor(this.style.backgroundColor);" id="current-border-color" href="#" class="color-well" style="background-color: #dcffd0;" > </a> <input id="text-border-color" class="topcoat-text-input quiet value" type="text" placeholder="none" value="">
                 </div>
                 <div class="pi-block">
                   <small>Width:</small> <input id="current-border-width" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-border-width" value="0" class="topcoat-range" type="range" name="border-width" onchange="updateTextInput(this.value, 'current-border-width'); Commands.setStrokeWidth(this.value);">
@@ -130,17 +137,24 @@
             <li id="type-field" style="display: none">
               <fieldset>
                 <legend>Type</legend>
+                <div class="pi-block">
                 <select name="fonts" id="current-type-font" class="topcoat-select">
                     <option name="Current Font" value="Current Font">null</option>
                 </select>
+                </div>
+                <div class="pi-block">
                 <small class="">Color:</small> <a onclick="replyClick(this.id);" id="current-type-color" href="#" class="color-well" style="background-color:" +hex+";"> </a> <input id="text-type-color" class="topcoat-text-input quiet value" type="text" value="">
+                </div>
+                <div class="pi-block">
+                  <small>Size:</small> <input id="current-text-size" class="topcoat-text-input quiet value small" type="text" placeholder="0"> <input id="toggle-text-size" value="0" class="topcoat-range" type="range" name="text-size" onchange="updateTextInput(this.value, 'current-text-size'); Commands.setTypeSize(this.value);">
+                </div>
               </fieldset>
             </li>
             <li id="pixel-field" style="display: none">
-              <fieldset>
+              <!-- <fieldset>
                 <legend>Pixel</legend>
-                <!-- <small class="">Fill:</small> <a onclick="replyClick(this.id);" id="current-fill-color" href="#" class="color-well" style="background-color:" +hex+";"> </a> <input id="text-fill-color" class="topcoat-text-input quiet value" type="text" value=""> -->
-              </fieldset>
+                <small class="">Fill:</small> <a onclick="replyClick(this.id);" id="current-fill-color" href="#" class="color-well" style="background-color:" +hex+";"> </a> <input id="text-fill-color" class="topcoat-text-input quiet value" type="text" value="">
+              </fieldset> -->
             </li>
             <li id="document-field" style="display: none">
               <fieldset>
@@ -149,86 +163,53 @@
                 <small class="">Layer #:</small> <input id="current-document-layerNumber" class="topcoat-text-input quiet value small" type="text" placeholder="0">
               </fieldset>
             </li>
-<!--
-            <li>
-              <input class="topcoat-range" type="range" name="foo" min="0" max="100">
-
-                <label for="width">W</label><input class="topcoat-text-input quiet" name="width" type="text" placholder="type it out fool!" value="0">
-                <label for="height">H</label><input class="topcoat-text-input quiet" name="height" type="text" placholder="type it out fool!" value="0">
-
-            </li>
-!-->
           </ul>
       </li>
       <li>
         <input type="checkbox" checked id="f2">
         <label for="f2">Layers</label>
-          <ul class="layers">
-
+         <ul class="layers" id="layersTarget">
             <li class="quiet">
-              <select name="blendmodes" class="topcoat-select">
-                <option value="normal">Normal</option>
-                <option value="dissolve">Dissolve</option>
-                <option value="darken">Darken</option>
-                <option value="multiply">Multiply</option>
-                <option value="colorburn">Color Burn</option>
-                <option value="linearburn">Linear Burn</option>
-                <option value="darkercolor">Darker Color</option>
-                <option value="lighten">Lighten</option>
-                <option value="screen">Screen</option>
-                <option value="colordodge">Color Dodge</option>
-                <option value="lineardodgeadd">Linear Dodge (Add)</option>
-              </select>
-
-              <select name="opacity" class="topcoat-select">
-                <option value="normal">100%</option>
-                <option value="normal">90%</option>
-                <option value="normal">80%</option>
-                <option value="normal">70%</option>
-                <option value="normal">60%</option>
-                <option value="normal">50%</option>
-                <option value="normal">40%</option>
-                <option value="normal">30%</option>
-                <option value="normal">20%</option>
-                <option value="normal">10%</option>
-                <option value="normal">0%</option>
-              </select>
+               <select name="blendmodes" class="topcoat-select">
+                  <option value="normal">Normal</option>
+                  <option value="dissolve">Dissolve</option>
+                  <option value="darken">Darken</option>
+                  <option value="multiply">Multiply</option>
+                  <option value="colorburn">Color Burn</option>
+                  <option value="linearburn">Linear Burn</option>
+                  <option value="darkercolor">Darker Color</option>
+                  <option value="lighten">Lighten</option>
+                  <option value="screen">Screen</option>
+                  <option value="colordodge">Color Dodge</option>
+                  <option value="lineardodgeadd">Linear Dodge (Add)</option>
+               </select>
+               <select name="opacity" class="topcoat-select">
+                  <option value="normal">100%</option>
+                  <option value="normal">90%</option>
+                  <option value="normal">80%</option>
+                  <option value="normal">70%</option>
+                  <option value="normal">60%</option>
+                  <option value="normal">50%</option>
+                  <option value="normal">40%</option>
+                  <option value="normal">30%</option>
+                  <option value="normal">20%</option>
+                  <option value="normal">10%</option>
+                  <option value="normal">0%</option>
+               </select>
             </li>
-
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic" style="color: #41b3e1;">pencil</a> Blue Pencil</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text layer</li>
-            <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">imageoutline</a> Bitmap layer</li>
+            <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic" onClick='Commands.selectLayer("text")'>attachment</a> SO</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">imageoutline</a> Bitmap layer</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text layer</li>
             <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text layer</li>
-            <li>
-              <input type="checkbox" id="g1">
-              <label for="g1"><a class="icomatic">view</a><a class="icomatic">folder</a> Group</label>
-              <ul>
-                <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
-                <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
-                <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
-                <li>
-                  <input type="checkbox" id="gg1">
-                  <label for="gg1"><a class="icomatic">view</a><a class="icomatic">folder</a> Group</label>
-                  <ul>
-                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
-                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
-                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
-                    <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">text</a> Text Layer</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#" class="icomatic">view</a> <a href="#" class="icomatic">imageoutline</a> Bitmap layer</li>
-          </ul>
+
+         </ul>
+
+      <div></div>
       </li>
     </ul>
   </aside>
-
-</div>
-
-    </aside>
 
   <script type="text/javascript" src="icomatic/icomatic.js"></script>
   <script type="text/javascript" src="commands.js"></script>

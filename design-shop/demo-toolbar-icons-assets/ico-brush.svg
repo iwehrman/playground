@@ -4,6 +4,15 @@
  xmlns="http://www.w3.org/2000/svg"
  xmlns:xlink="http://www.w3.org/1999/xlink"
  xmlns:ev="http://www.w3.org/2001/xml-events" >
-<path fill-rule="evenodd"  fill="rgb( 255, 255, 255 )"
+<defs>
+<filter id="Filter_0">
+  <feFlood flood-color="rgb( 255, 255, 255 )" flood-opacity="1" result="floodOut" />
+  <feComposite operator="atop" in="floodOut" in2="SourceGraphic" result="compOut" />
+  <feBlend mode="normal" in="compOut" in2="SourceGraphic" />
+</filter>
+
+</defs><g filter="url(#Filter_0)">
+<path fill-rule="evenodd"  fill="rgb( 0, 0, 0 )"
  d="M30.774,29.892 C34.334,24.143 42.006,10.563 41.914,9.594 C41.768,7.986 41.313,7.842 39.678,7.997 C38.673,8.099 29.739,21.134 25.971,26.616 C25.971,26.616 30.774,29.892 30.774,29.892 ZM24.282,29.172 C24.282,29.172 22.482,29.513 22.170,29.666 C17.907,30.933 16.974,34.479 15.421,36.343 C12.305,38.929 8.992,38.765 8.992,38.765 C12.295,41.548 15.638,41.866 20.142,41.824 C24.479,41.392 29.522,39.302 29.326,32.427 C29.345,32.417 24.282,29.172 24.282,29.172 Z"/>
+</g>
 </svg>
