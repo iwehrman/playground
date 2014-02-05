@@ -681,6 +681,7 @@ function displayPopover(obj) {
     thePopover.style.top = popoverY;
     initiatePopover();
 
+
 // This needs to happen after it moves into position
 //        thePopover.className = "visible";
 
@@ -692,6 +693,9 @@ function displayPopover(obj) {
     console.log("popover y: "+popoverY);
 */
 
+}
+function closePopover() {
+    thePopover.className = "hidden";
 }
 
 
