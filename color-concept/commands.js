@@ -1,3 +1,4 @@
+
 onPSEvent = function(command, params) {
 
     var fn = eventHandlers[command]
@@ -19,7 +20,6 @@ eventHandlers = {
      }
      //console.log(target.ref)
      if(ref == "Lyr ") {
-// Popover could probably start here?
         var layerCache = PS.get("Lyr ");
         console.log("Name: ", target.name);
         console.log("Opacity: ", layerCache["Opct"]);
@@ -33,7 +33,7 @@ eventHandlers = {
         {
           case "type": 
             Commands.displayProperties(layerCache);
-            try { console.log("Typeface: ", layerCache['Txt ']['Txtt'][0]['TxtS']["fontPostScriptName"]);
+            try { console.log("Typeface: ", layerCache['Txt ']['Txtt'][0]['TxtS']['FntN']);
             } catch (e) { console.log("No type here") }
             break;
           case "vector":
@@ -81,7 +81,7 @@ eventHandlers = {
       return;
      }
 
-
+     Commands.displayLayers();
 
 //console.log(JSON.stringify(params,null," "))
 
@@ -91,7 +91,8 @@ eventHandlers = {
   console.log("setd",params);
   //console.log(params["T   "]["Grn "]);
   if(params.Srce === "eyeDropperSample") { 
-        Commands.setFillColor(params["T   "]["Rd  "], params["T   "]["Grn "], params["T   "]["Bl  "]) 
+        Commands.setFillColor(params["T   "]["Rd  "], params["T   "]["Grn "], params["T   "]["Bl  "])
+        Commands.setTypeColor(params["T   "]["Rd  "], params["T   "]["Grn "], params["T   "]["Bl  "])
   };
  },
 
@@ -109,19 +110,53 @@ eventHandlers = {
 
  },
 
- move: function(params) { // Hide Layer
+ move: function(params) { // Move Layer
 
   //console.log(Commands.getAllLayers());
 
  },
 
-'Opn ': function(params) { // Hide Layer
+Trnf: function(params) { // Move Layer
 
-  console.log(Commands.getAllLayers());
+  Commands.displayProperties(PS.get("Lyr "));
 
  },
 
-selectNoLayers: function(params) { // Hide Layer
+
+'Opn ': function(params) { // Open Document
+
+  //globalLayerList = Commands.layers(["Nm  ", "LyrI", "layerKind", "Opct", "Vsbl"])
+  Commands.displayLayers();
+
+ },
+
+'Cls ': function(params) { // Close Document
+
+    Commands.displayLayers();
+
+},
+
+'Mk  ': function(params) { // Make Layer
+
+    Commands.displayLayers();
+    console.log(params);
+    //Commands.displayProperties(PS.get("Lyr "));
+
+
+},
+
+'Dlt ': function(params) { // Delete Layer
+
+    Commands.displayLayers();
+
+},
+
+newPlacedLayer: function(params) { // convert to smart object 
+
+    Commands.displayLayers();
+
+},
+selectNoLayers: function(params) { // Deselect All Layer
 
   console.log("Layers Deselected");
   Commands.displayProperties(PS.get("document"));
@@ -286,7 +321,7 @@ var toolMap = function(arr) {
     break;
     case "ellipseTool":
         mappedTool = "Ellipse"
-        toolClass = "tool-ellipse"
+        toolClass = "tool-circle"
     break;
     case "penTool":
         mappedTool = "Path"
@@ -316,25 +351,20 @@ var toolMap = function(arr) {
         mappedTool = "Blue Pencil"
         toolClass = "tool-blue-pencil"
     break;
+    case "Prvs":
+        mappedTool = "Blue Pencil"
+        toolClass = "tool-arrow-left"
+    break;
+    case "Nxt":
+        mappedTool = "Blue Pencil"
+        toolClass = "tool-arrow-right"
+    break;
     default:
         mappedTool = arr;
    }
 
    return mappedTool;
 
-   // Can't get this damn thing to work as an object for some reason
-   // var toolMapList = {  "moveTool": "Move",
-   //                  "roundedRectangleTool": "Rounded Rectangle",
-   //                  "rectangleTool": "Rectangle",
-   //                  ellipseTool: "Ellipse",
-   //                  penTool: "Path",
-   //                  PbTl: "Paint Brush",
-   //                  eyedropperTool: "Eyedropper",
-   //                  typeCreateOfEditTool: "Text",
-   //                  lassoTool: "Lasso",
-   //                  cropTool: "Crop",
-   //                };
-   //  console.log(toolMapList.arr);
 }
 
 
@@ -376,6 +406,22 @@ onFilesChanged = function(arr) {
 //    return key
 // }
 //}
+
+
+var select = function(arr, fieldName) {
+    return arr.map(function(elt) { return elt[fieldName];});
+}
+
+var mapFnFromArray = function (arr) {
+    return function(elt) {
+     var rval = {};
+        
+        arr.forEach(function(key) {
+            rval[key] = elt[key];   
+        })
+        return rval;
+    }
+}
 
 var stripMunge = function(str) {
     var idx = str.indexOf('?')
@@ -534,7 +580,79 @@ Commands = {
     selectTool: function(name, options, forceNotify) {
         console.warn("Commands.selectTool is deprecated. please use Commands.setTool instead")
         Commands.setTool(name, options, forceNotify)
-    }
+    },
+
+   rawLayers : function() {
+
+      var numberOfLayers = PS.get("document")["NmbL"];
+      var layers = [];
+      for (var i=0;i<numberOfLayers+1;i++) { 
+          var elt =  PS.get({ref:"Lyr ", index:i});
+          if(typeof elt !== "string")
+              layers.push(elt)
+        }
+       
+       
+       
+      return layers;
+   },
+    
+    layers: function (fieldsAllowed) {
+        
+        var raw = Commands.rawLayers()
+
+        if(typeof fieldsAllowed == "function")
+            raw = raw.map(fieldsAllowed)
+        else if (typeof fieldsAllowed == "string") {
+            raw = raw.map(mapFnFromArray([fieldsAllowed, "layerKind"]))
+        } else if (Array.isArray(fieldsAllowed)) {
+            var fields = fieldsAllowed.concat("layerKind");
+            raw = raw.map(mapFnFromArray(fields))
+        }
+        
+        var rval = []
+        var targets = [rval]
+        var target = rval
+
+        var actions = []
+        actions[LayerKinds.group] = function(elt) {
+            //console.log("push");
+            defaultAction(elt)
+            elt.children = []
+            targets.push(elt.children)
+            target = elt.children
+        }
+        var defaultAction = function(elt) {
+            //console.log("add");
+            target.push(elt)    
+        }
+        
+        actions[LayerKinds.endGroup] = function(elt) {
+            //console.log("pop");
+            target.endGroup = elt
+            targets.pop()
+            target = targets[targets.length-1]
+        }
+        
+        for(var i = raw.length-1; i >= 0; --i) {
+            var elt = raw[i];
+            var cmd = actions[elt.layerKind] || defaultAction;
+            cmd(elt)
+        }
+        return rval;
+    }//layers
+    
+}//Commands
+
+LayerKinds = {
+group:7,
+endGroup:13,
+bitmap:1,
+adjustment:2, // also gradient / solid color / pattern
+type:3,
+vector:4,
+smartobject:5,        
+               
 }
 
 Commands.Noun = {
@@ -559,7 +677,7 @@ Inner.CallSimple = function(verb, noun) {
 
 var globalFontList = []
 var globalLayerRef
-var prevGlobalLayerRef
+var globalLayerList
 
 Commands.magicWand = function(mode, radius, tolerance, aa, contig, allLayers) {
     Commands.setToolWithOptions("magicWandTool", {
@@ -617,81 +735,6 @@ C = {
             value: "Trgt"
         }
     }
-}
-
-
-// BARGGGGGGH! Trying to determine x and y for the popover
-var thePopover = document.getElementById('popover');
-var dde = document.documentElement;
-var documentHeight = Math.max(dde.scrollHeight, dde.offsetHeight, dde.clientHeight);
-var documentWidth = Math.max(dde.scrollWidth, dde.offsetWidth, dde.clientWidth);
-var canvasHeight = (PS.get("document").Hght.value)/2;
-var canvasWidth = PS.get("document").Wdth.value;
-var zeroY = documentHeight - canvasHeight;
-var selectionBottom;
-var selectionLeft;
-var selectionWidth;
-var popoverY;
-var popoverX;
-
-function displayPopover(obj) {
-
-    killPopover();
-
-
-    var popoverHeight;
-    var popoverWidth;
-    var popoverTimer;
-
-    thePopover.className = "hidden";
-
-    popoverHeight = thePopover.clientHeight/2;
-    popoverWidth = thePopover.clientWidth/2;
-/*
-    console.log("Doc Height: "+documentHeight);
-    console.log("Canvas Height: "+canvasHeight);
-    console.log("Doc Width: "+documentWidth);
-    console.log("Zero Y: "+zeroY);
-*/
-
-    selectionLeft = PS.get("Lyr ").bounds.Left.value;
-    selectionBottom = PS.get("Lyr ").bounds.Btom.value/2;
-    selectionWidth = PS.get("Lyr ").bounds.Wdth.value/2;
-
-
-// Dividing these by 2 to account for retina weirdness (no idea I'm just being a math moron)?
-    popoverX = (popoverWidth/2)+(selectionLeft/2)+(selectionWidth/2)+"px";
-    popoverY = selectionBottom/2+"px";
-
-    function initiatePopover() {
-        console.log("starting popover timer");
-      popoverTimer = (
-        setTimeout(
-          function() {
-            thePopover.className = "visible";
-          },150)
-      );
-    }
-    function killPopover() {
-        console.log("stopping timer");
-        clearTimeout(popoverTimer);
-    }
-
-    thePopover.style.left = popoverX;
-    thePopover.style.top = popoverY;
-    initiatePopover();
-
-// This needs to happen after it moves into position
-//        thePopover.className = "visible";
-
-
-/*
-    console.log(selectionBottom);
-    console.log("doc height "+documentHeight);
-    console.log("popover x: "+popoverX);
-    console.log("popover y: "+popoverY);
-*/
-
 }
 
 
@@ -798,6 +841,61 @@ Commands.setStrokeWidth = function(idx) {
   })
 }
 
+Commands.setTypeSize = function(idx) {
+  PS.call('setd',{
+  "T   " : {
+    "obj" : "TxtS",
+    "Sz  " : {
+      "value" : idx,
+      "unit" : "#Pnt"
+    },
+    "textOverrideFeatureName" : 808465458,
+    "typeStyleOperationType" : 3
+  },
+  "null" : {
+    "ref" : [
+      {
+        "ref" : "TxLr",
+        "value" : "Trgt",
+        "enumType" : "Ordn"
+      },
+      {
+        "property" : "TxtS"
+      }
+    ]
+  }
+})
+
+}
+
+Commands.setTypeColor = function(theR, theG, theB) {
+  PS.call('setd',{
+  "T   " : {
+    "Clr " : {
+      "Grn " : theG,
+      "Rd  " : theR,
+      "obj" : "RGBC",
+      "Bl  " : theB
+    },
+    "obj" : "TxtS",
+    "textOverrideFeatureName" : 808466226,
+    "typeStyleOperationType" : 3
+  },
+  "null" : {
+    "ref" : [
+      {
+        "ref" : "TxLr",
+        "value" : "Trgt",
+        "enumType" : "Ordn"
+      },
+      {
+        "property" : "TxtS"
+      }
+    ]
+  }
+})
+}
+
 Commands.setFillColor = function(theR, theG, theB) {
   PS.call('setd',{
     "T   " : {
@@ -854,87 +952,6 @@ PS.call('setd',{
 }
 
 
-   // arry = [ //for testing
-    //         {"order":1,"id":14,"name":"Top","kind":"group","visible":1},
-    //         {"order":2,"id":382,"name":"Hi there","kind":"text","visible":1},
-    //         {"order":3,"id":214,"name":"Middle","kind":"group","visible":1}, 
-    //         {"order":4,"id":382,"name":"Rectangle 3","kind":"vector","visible":1},
-    //         {"order":5,"id":314,"name":"Bottom","kind":"group","visible":1},
-    //         {"order":6,"id":382,"name":"Rectangle 4","kind":"vector","visible":1},
-    //         {"order":7,"id":251,"name":"</Layer group>","kind":"/endofgroup","visible":1},
-    //         {"order":8,"id":251,"name":"</Layer group>","kind":"/endofgroup","visible":1},
-    //         {"order":9,"id":251,"name":"</Layer group>","kind":"/endofgroup","visible":1},
-    //         {"order":10,"id":470,"name":"Latest Product News","kind":"group","visible":1},
-    //         ]
-
-function buildTree(branch, list) {
-  //recursively builds tree from list with parent-child dependencies
-  if (typeof branch == 'undefined') return null;
-  var tree = [];
-  for(var i=0; i<branch.length; i++)      
-    tree.push( {
-      item: branch[i],
-      children: buildTree( list[ branch[i].id ], list)
-    });
-  return tree;
-}
-
-// if type is group, create another {} and then dump layers, stop when we see '/endofgroup'
-          /*
-        {
-            {
-                "name" : MyGroup,
-                ...
-                "kind" : group,
-                ...
-                "children" : {
-                        {
-                        "name" : Layer1, 
-                        ..
-                        },
-                        {
-                        "name" : Layer2, 
-                        ..
-                    }
-                },
-                {
-                  "name" : Layer3, 
-                  ...
-                  "kind" : group,
-                  ...   
-                  "children" : null
-                },
-            }
-        }
-
-          */ 
-// var createNodeRecursive = function (order, id, name, kind, visible, children) {
-//     var numberOfLayers = PS.get("document")["NmbL"];
-//     var layerNames = [];
-//       for (var i=0;i<numberOfLayers+1;i++) { 
-//           var layerRef = PS.get({ref:"Lyr ", index:i});
-//           if (layerRef === (undefined || null)) continue;
-//           layerNames[Commands.getLayerOrder(layerRef)] = createNodeRecursive( Commands.getLayerOrder(layerRef), 
-//                                                                               Commands.getLayerID(layerRef),  
-//                                                                               Commands.getLayerName(layerRef), 
-//                                                                               Commands.getLayerKind(layerRef), 
-//                                                                               Commands.getLayerVisibility(layerRef),
-//                                                                               {}
-//                                                                             )
-//         }
-
-//     if (kind === '/endofgroup') {
-//             return;
-//     }
-    
-// }
-
-// Commands.getAllLayers2 = function() {
-
-//       createNodeRecursive();
-      
-//       return JSON.stringify(layerNames.reverse()); //last one on top
-// }
 
 Commands.getAllLayers = function() {
 
@@ -1008,8 +1025,9 @@ Commands.getFontList = function() {
 
 
 Commands.displayPropertiesName = function(name) {
+
     document.getElementById("current-object").innerHTML = name;
-    displayPopover(document.getElementById("popover"));
+
 }
 
 Commands.displayPropertiesFill = function(layerRef) {
@@ -1023,7 +1041,7 @@ Commands.displayPropertiesFill = function(layerRef) {
                             Math.round(layerRef.Adjs[0]["Clr "]["Bl  "])
                             + ")";
     //console.log(Math.round(layerRef.Adjs[0]["Clr "]["Rd  "]));
-    console.log("Fill: " + normalizedRGB);
+    //console.log("Fill: " + normalizedRGB);
     document.getElementById("current-fill-color").style.backgroundColor = normalizedRGB;
     document.getElementById("text-fill-color").value = normalizedRGB;
 }
@@ -1038,6 +1056,7 @@ Commands.displayPropertiesStroke = function(layerRef) {
                                 Math.round(layerRef.AGMStrokeStyleInfo["strokeStyleContent"]["Clr "]["Bl  "])
                                 + ")";
         var normalizeStroke = Math.round(layerRef.AGMStrokeStyleInfo["strokeStyleLineWidth"]["value"]);
+        //var radii = 
     } catch (e) {
         var normalizeStroke = "0";
         var normalizedRGB = "none";
@@ -1054,10 +1073,20 @@ Commands.displayPropertiesStroke = function(layerRef) {
 
 Commands.displayPropertiesTypeFont = function(layerRef) {
     //console.log(layerRef['Txt ']['Txtt'][0]['TxtS']["fontPostScriptName"]);
-    document.getElementById("current-type-font").options.namedItem("replaceMe").value = layerRef['Txt ']['Txtt'][0]['TxtS']["fontPostScriptName"];
-    document.getElementById("current-type-font").options.namedItem("replaceMe").innerHTML = layerRef['Txt ']['Txtt'][0]['TxtS']["fontPostScriptName"];
+    //layerRef['Txt ']['Txtt'][0]['TxtS']['Sz  '].value
 
-    return layerRef['Txt ']['Txtt'][0]['TxtS']["fontPostScriptName"]
+    document.getElementById("current-type-font").options.namedItem("fonts").value = layerRef['Txt ']['Txtt'][0]['TxtS']['FntN'];
+    document.getElementById("current-type-font").options.namedItem("fonts").innerHTML = layerRef['Txt ']['Txtt'][0]['TxtS']['FntN'];
+
+    //return layerRef['Txt ']['Txtt'][0]['TxtS']["fontPostScriptName"]
+}
+
+Commands.displayPropertiesTypeSize = function(layerRef) {
+    //console.log(layerRef['Txt ']['Txtt'][0]['TxtS']['Sz  '].value)
+    var typeSize = layerRef['Txt ']['Txtt'][0]['TxtS']['Sz  '].value
+
+    document.getElementById("current-text-size").value = typeSize;
+    document.getElementById("toggle-text-size").value = typeSize;
 }
 
 Commands.displayPropertiesTypeColor = function(layerRef) {
@@ -1079,7 +1108,7 @@ Commands.displayTypeFontList = function() {
     var fontPostScriptNames = appFonts["fontList"]["fontPostScriptName"];
     //console.log(fontPostScriptNames);
     globalFontList = [];
-    globalFontList[0] = "<option name=\"" + "replaceMe" + "\" value=\"" + "replaceMe" + "\">" + "replaceMe" + "</option>";
+    globalFontList[0] = "<option name=\"" + "fonts" + "\" value=\"" + "fonts" + "\">" + "fonts" + "</option>";
     globalFontList[1] = "<option disabled>------------------------</option>";
     for (i=2;i<fontDisplayNames.length;i++) {
 
@@ -1147,6 +1176,7 @@ Commands.displayProperties = function(layerRef) {
         if(globalFontList[0] === undefined) { Commands.displayTypeFontList() }; //this should be relocated to the place where we do initialization
         Commands.displayPropertiesTypeFont(layerRef);
         Commands.displayPropertiesTypeColor(layerRef);
+        Commands.displayPropertiesTypeSize(layerRef);
         document.getElementById("dimensions-field").style.display = "";
         document.getElementById("vector-field").style.display = "none";
         document.getElementById("type-field").style.display = "";
@@ -1163,6 +1193,68 @@ Commands.displayProperties = function(layerRef) {
     }
 }
 
+var icomaticMap = { //goofiness here is to map icomatic fonts to their layer equivalents
+7:"folder",
+5:"attachment", //smartobject
+4:"roundedrectangle", //vector
+3:"text",
+2:"picasa", //adjustment
+1:"imageoutline"
+
+}
+
+Commands.displayLayers = function() {
+
+    var globalLayerList = Commands.layers(["Nm  ", "LyrI", "layerKind", "Opct", "Vsbl"])
+    //console.log(globalLayerList)
+    //console.log(Object.keys(globalLayerList))
+    //console.log(globalLayerList.length)
+    //console.log(globalLayerList[0].layerKind) 
+    //console.log(globalLayerList[0].Vsbl)
+    //console.log(globalLayerList[0]["Nm  "]) 
+    //globalLayerList LayerKinds
+
+    var textBuffer = [];
+
+    textBuffer.push('<li class="quiet"><select name="blendmodes" class="topcoat-select"><option value="normal">Normal</option><option value="dissolve">Dissolve</option><option value="darken">Darken</option><option value="multiply">Multiply</option><option value="colorburn">Color Burn</option><option value="linearburn">Linear Burn</option><option value="darkercolor">Darker Color</option><option value="lighten">Lighten</option><option value="screen">Screen</option><option value="colordodge">Color Dodge</option><option value="lineardodgeadd">Linear Dodge (Add)</option></select><select name="opacity" class="topcoat-select"><option value="normal">100%</option><option value="normal">90%</option><option value="normal">80%</option><option value="normal">70%</option><option value="normal">60%</option><option value="normal">50%</option><option value="normal">40%</option><option value="normal">30%</option><option value="normal">20%</option><option value="normal">10%</option><option value="normal">0%</option></select></li>')
+
+    eachRecursive(globalLayerList)
+
+    textBuffer.pop(); // remove trailing crap from object iteration (hackmaster riot OUT) 
+
+    var text = String(textBuffer.join(""))
+
+    //console.log(text)
+    document.getElementById("layersTarget").innerHTML = text
+
+
+    function eachRecursive(obj) {
+
+        for (var i=0;i<obj.length;i++) {
+                var layerTemp = obj[i]['layerKind']
+                var kindTemp = icomaticMap[layerTemp]
+                //console.log(kindTemp);
+                switch(layerTemp) { 
+
+                case 7: 
+                    textBuffer.push("<li><input type=\"checkbox\" id=\"" + obj[i]['LyrI'] + "\"><label for=\"" + obj[i]['LyrI'] + "\"><a class=\"icomatic\">view</a><a class=\"icomatic\">" + kindTemp + "</a>"+ obj[i]['Nm  '] + "</label><ul>")
+                break;
+                default: 
+                    textBuffer.push("<li><a href=\"#\" class=\"icomatic\">view</a> <a href=\"#\" class=\"icomatic\">" + kindTemp + "</a>"+ obj[i]['Nm  '] + "</li>")
+                    
+                break;
+
+                }    
+                if(obj[i]['children'] && obj[i]['children'] !== null) { eachRecursive(obj[i]['children']) }
+                if (i==(obj.length-1)) { textBuffer.push("</ul></li>") }
+
+        }
+
+    }
+
+}
+
+
 Commands.displaySelectedTool = function(toolName) {
         var mappedTool = toolMap(toolName); 
         if (document.getElementsByClassName("selected")[0]) document.getElementsByClassName("selected")[0].className='';
@@ -1171,12 +1263,32 @@ Commands.displaySelectedTool = function(toolName) {
 
 }
 
+
+var OverlayMap = {
+Move:'tool-move',
+Prvs:'tool-arrow_left',
+Nxt:'tool-arrow_right',
+'Rounded Rectangle':'tool-rounded-rect',
+Rectangle:'tool-rect',
+Ellipse:'tool-circle', // also gradient / solid color / pattern
+Path:'tool-pen',
+Paintbrush:'tool-brush',
+Eyedropper:'tool-eyedropper',
+Type:'tool-text',
+Lasso:'tool-lasso',
+Crop:'tool-crop',
+"Blue Pencil":'tool-blue-pencil',             
+               
+}
+
 Commands.displayToolOverlay = function(toolName) {
     var currentToolTimer;
     var element = document.getElementById("overlay");
 
     element.className = "visible "+toolClass;
+
 //    console.log(element.className);
+    clearTimeout(currentToolTimer);
     toolIndicatorTimer();
 
     function toolIndicatorTimer() {
@@ -1184,7 +1296,7 @@ Commands.displayToolOverlay = function(toolName) {
         setTimeout(
           function() {
             element.className = "hidden";
-          },800)
+          },500)
       );
     }
     function stopToolIndicatorTimer() {
@@ -1355,6 +1467,7 @@ Commands.bluePencil = function() {
             Commands.renameLayer("blue pencil");
         }
         Commands.moveSelectedLayerToFront();
+        Commands.displayLayers();
 
         Commands.setBrush(2)
         Commands.setForegroundColor(65, 179, 225);
