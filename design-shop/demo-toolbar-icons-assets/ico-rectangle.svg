@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" baseProfile="full"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:ev="http://www.w3.org/2001/xml-events" >
+<defs>
+<filter id="Filter_0">
+  <feFlood flood-color="rgb( 255, 255, 255 )" flood-opacity="1" result="floodOut" />
+  <feComposite operator="atop" in="floodOut" in2="SourceGraphic" result="compOut" />
+  <feBlend mode="normal" in="compOut" in2="SourceGraphic" />
+</filter>
+
+</defs><g filter="url(#Filter_0)">
+<path fill-rule="evenodd"  fill="rgb( 0, 0, 0 )"
+ d="M58.000,61.000 C58.000,61.000 58.000,90.000 58.000,90.000 C58.000,90.000 92.000,90.000 92.000,90.000 C92.000,90.000 92.000,61.000 92.000,61.000 C92.000,61.000 58.000,61.000 58.000,61.000 ZM90.000,88.000 C90.000,88.000 60.000,88.000 60.000,88.000 C60.000,88.000 60.000,63.000 60.000,63.000 C60.000,63.000 90.000,63.000 90.000,63.000 C90.000,63.000 90.000,88.000 90.000,88.000 Z"/>
+</g>
+</svg>

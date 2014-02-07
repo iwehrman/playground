@@ -54,12 +54,12 @@ eventHandlers = {
             Commands.displayProperties(layerCache);
           break;
           case "smartobject":
-            //Commands.displayProperties(layerCache);
-            console.log("SmartObjectFile: ", PS.get("Lyr ")["smartObject"]['FilR']);
+            Commands.displayProperties(layerCache);
+            //console.log("SmartObjectFile: ", PS.get("Lyr ")["smartObject"]['FilR']);
             break;
           case "group":
-            //Commands.displayProperties(layerCache);
-            console.log("SmartObjectFile: ", PS.get("Lyr ")["smartObject"]['FilR']);
+            Commands.displayProperties(layerCache);
+            //console.log("SmartObjectFile: ", PS.get("Lyr ")["smartObject"]['FilR']);
             break;
       }
         return;
