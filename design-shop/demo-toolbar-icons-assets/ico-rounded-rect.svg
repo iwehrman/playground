@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" baseProfile="full"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:ev="http://www.w3.org/2001/xml-events" >
+<defs>
+<filter id="Filter_0">
+  <feFlood flood-color="rgb( 255, 255, 255 )" flood-opacity="1" result="floodOut" />
+  <feComposite operator="atop" in="floodOut" in2="SourceGraphic" result="compOut" />
+  <feBlend mode="normal" in="compOut" in2="SourceGraphic" />
+</filter>
+
+</defs><g filter="url(#Filter_0)">
+<path fill-rule="evenodd"  fill="rgb( 0, 0, 0 )"
+ d="M82.812,110.000 C82.812,110.000 67.258,110.000 67.258,110.000 C62.287,110.000 58.000,114.579 58.000,119.550 C58.000,119.550 58.000,131.000 58.000,131.000 C58.000,135.971 62.264,140.000 67.234,140.000 C67.234,140.000 82.835,140.000 82.835,140.000 C87.807,140.000 92.000,136.021 92.000,131.050 C92.000,131.050 92.000,119.600 92.000,119.600 C92.000,114.629 87.783,110.000 82.812,110.000 ZM90.000,130.500 C90.000,134.642 86.642,138.000 82.500,138.000 C82.500,138.000 67.500,138.000 67.500,138.000 C63.358,138.000 60.000,134.642 60.000,130.500 C60.000,130.500 60.000,119.500 60.000,119.500 C60.000,115.358 63.358,112.000 67.500,112.000 C67.500,112.000 82.500,112.000 82.500,112.000 C86.642,112.000 90.000,115.358 90.000,119.500 C90.000,119.500 90.000,130.500 90.000,130.500 Z"/>
+</g>
+</svg>
