@@ -573,8 +573,11 @@ ul #toggle-custom button {
 		height: 44px;
 		overflow: hidden;
 	}
+	#color-selection > li {
+		border: 6px solid #282828;
+	}
 	#color-selection > li a:hover {
-
+		border-color: #484848;
 	}
 		#color-selection > li > #swatches {
 			position: absolute;
